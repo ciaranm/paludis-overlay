@@ -1,0 +1,49 @@
+# Copyright 1999-2006 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+inherit subversion
+
+DESCRIPTION="paludis, the other package mangler"
+HOMEPAGE="http://paludis.berlios.de/"
+SRC_URI=""
+
+LICENSE="GPL-2"
+SLOT="0"
+KEYWORDS="~x86"
+IUSE=""
+
+DEPEND="dev-cpp/libebt
+	>=app-shells/bash-3
+	=sys-devel/autoconf-2.59*
+	=sys-devel/automake-1.9*
+	doc? ( app-doc/doxygen )"
+
+RDEPEND="app-admin/eselect
+	>=app-shells/bash-3
+	net-misc/wget
+	net-misc/rsync"
+
+ESVN_REPO_URI="svn://svn.berlios.de/paludis/trunk"
+ESVN_BOOTSTRAP="./autogen.bash"
+
+src_compile() {
+	econf --disable-qa \
+		$(use_enable doc doxygen ) \
+		|| die "econf failed"
+
+	emake || die "emake failed"
+	if use doc ; then
+		make doxygen || die "make doxygen failed"
+	fi
+}
+
+src_install() {
+	make DESTDIR="${D}" install || die "install failed"
+	dodoc AUTHORS README
+
+	if use doc ; then
+		dohtml -r doc/html/
+	fi
+}
+
