@@ -47,3 +47,7 @@ src_install() {
 	fi
 }
 
+src_test() {
+	emake -j1 check || die "Make check failed"
+}
+
