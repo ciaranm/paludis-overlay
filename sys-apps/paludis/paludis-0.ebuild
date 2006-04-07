@@ -48,6 +48,6 @@ src_install() {
 }
 
 src_test() {
-	emake -j1 check || die "Make check failed"
+	emake check || die "Make check failed"
 }
 
