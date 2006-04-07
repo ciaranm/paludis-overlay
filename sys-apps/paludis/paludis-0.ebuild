@@ -40,7 +40,7 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS README
+	dodoc AUTHORS README doc/HOWTO.txt
 
 	if use doc ; then
 		dohtml -r doc/html/
