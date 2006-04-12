@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2006 Ciaran McCreesh
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,7 +22,8 @@ DEPEND="dev-cpp/libebt
 RDEPEND="app-admin/eselect
 	>=app-shells/bash-3
 	net-misc/wget
-	net-misc/rsync"
+	net-misc/rsync
+	dev-libs/openssl"
 
 ESVN_REPO_URI="svn://svn.berlios.de/paludis/trunk"
 ESVN_BOOTSTRAP="./autogen.bash"
