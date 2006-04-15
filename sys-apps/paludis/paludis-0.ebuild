@@ -13,13 +13,15 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-DEPEND="dev-cpp/libebt
+DEPEND="
+	dev-cpp/libebt
 	>=app-shells/bash-3
 	=sys-devel/autoconf-2.59*
 	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )"
 
-RDEPEND="app-admin/eselect
+RDEPEND="
+	>=app-admin/eselect-1.0.2
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
