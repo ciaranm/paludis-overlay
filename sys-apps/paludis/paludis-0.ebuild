@@ -27,6 +27,8 @@ RDEPEND="
 	net-misc/rsync
 	dev-libs/openssl"
 
+PROVIDE="virtual/portage"
+
 ESVN_REPO_URI="svn://svn.berlios.de/paludis/trunk"
 ESVN_BOOTSTRAP="./autogen.bash"
 
