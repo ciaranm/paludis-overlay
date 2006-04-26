@@ -25,7 +25,8 @@ RDEPEND="
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	dev-libs/openssl"
+	dev-libs/openssl
+	!mips? ( sys-apps/sandbox )"
 
 PROVIDE="virtual/portage"
 
@@ -35,6 +36,7 @@ ESVN_BOOTSTRAP="./autogen.bash"
 src_compile() {
 	econf --disable-qa \
 		$(use_enable doc doxygen ) \
+		$(use_enable !mips sandbox ) \
 		|| die "econf failed"
 
 	emake || die "emake failed"
