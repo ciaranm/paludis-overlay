@@ -25,7 +25,6 @@ RDEPEND="
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	dev-libs/openssl
 	!mips? ( sys-apps/sandbox )"
 
 PROVIDE="virtual/portage"
