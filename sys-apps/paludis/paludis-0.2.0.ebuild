@@ -4,7 +4,7 @@
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.berlios.de/"
-SRC_URI="http://prdownload.berlios.de/paludis/paludis-0.2.0.tar.bz2"
+SRC_URI="http://download.berlios.de/paludis/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
