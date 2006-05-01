@@ -9,7 +9,7 @@ SRC_URI="http://download.berlios.de/paludis/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~mips ~x86"
-IUSE=""
+IUSE="doc"
 
 DEPEND="
 	dev-cpp/libebt
