@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit subversion
-
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.berlios.de/"
-SRC_URI=""
+SRC_URI="http://prdownload.berlios.de/paludis/paludis-0.2.0.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -29,9 +27,6 @@ RDEPEND="
 
 PROVIDE="virtual/portage"
 
-ESVN_REPO_URI="svn://svn.berlios.de/paludis/trunk"
-ESVN_BOOTSTRAP="./autogen.bash"
-
 src_compile() {
 	econf --disable-qa \
 		$(use_enable doc doxygen ) \
@@ -46,7 +41,7 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS README ChangeLog doc/HOWTO.rst
+	dodoc AUTHORS README ChangeLog
 
 	if use doc ; then
 		dohtml -r doc/html/
