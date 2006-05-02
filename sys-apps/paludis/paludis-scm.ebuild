@@ -46,7 +46,7 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS README ChangeLog
+	dodoc AUTHORS README ChangeLog NEWS
 
 	if use doc ; then
 		dohtml -r doc/html/
