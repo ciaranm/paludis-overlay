@@ -54,6 +54,8 @@ src_install() {
 }
 
 src_test() {
+	# Work around Portage bug
+	addwrite /var/cache
 	emake check || die "Make check failed"
 }
 
