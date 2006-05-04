@@ -8,7 +8,7 @@ SRC_URI="http://download.berlios.de/paludis/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~mips ~x86"
+KEYWORDS="~alpha ~amd64 ~mips ~sparc ~x86"
 IUSE="doc"
 
 DEPEND="

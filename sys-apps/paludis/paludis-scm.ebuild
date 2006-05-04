@@ -10,7 +10,7 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~mips ~x86"
+KEYWORDS="~alpha ~amd64 ~mips ~sparc ~x86"
 IUSE="doc"
 
 DEPEND="
