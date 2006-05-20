@@ -1,12 +1,10 @@
-# Copyright 1999-2006 Ciaran McCreesh
+# Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
-
-inherit subversion
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/paludis/paludis-0.2.3.ebuild,v 1.1 2006/05/19 23:27:28 spb Exp $
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.berlios.de/"
-SRC_URI=""
+SRC_URI="http://download.berlios.de/paludis/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -16,8 +14,6 @@ IUSE="doc pink"
 DEPEND="
 	dev-cpp/libebt
 	>=app-shells/bash-3
-	=sys-devel/autoconf-2.59*
-	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )"
 
 RDEPEND="
@@ -29,14 +25,11 @@ RDEPEND="
 
 PROVIDE="virtual/portage"
 
-ESVN_REPO_URI="svn://svn.berlios.de/paludis/trunk"
-ESVN_BOOTSTRAP="./autogen.bash"
-
 src_compile() {
 	econf --disable-qa \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
-		$(use_enable pink) \
+		$(use_enable pink ) \
 		|| die "econf failed"
 
 	emake || die "emake failed"
