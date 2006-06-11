@@ -17,11 +17,10 @@ earlier versions), they should be specified as a space separated list.
 Priority is given to eclasses in directories later in the list, but the
 ECLASSDIR variable is set from the first value.
 
-The 'profiledir' key is now 'profilesdir'. In only a single profile
-directory is being used, the value format does not change. However, if
-multiple profile directories are desired, they should be specified in a
-space separated list. Priority is given to values defined later in the
-list.
+The 'profile' key is now 'profiles'. In only a single profile directory is
+being used, the value format does not change. However, if multiple profile
+directories are desired, they should be specified in a space separated list.
+Priority is given to values defined later in the list.
 
 The old keys will continue to work (albeit with a warning displayed) for
 long enough to give users ample time to make the transition.
