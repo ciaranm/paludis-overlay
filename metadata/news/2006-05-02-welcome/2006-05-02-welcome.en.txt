@@ -1,5 +1,6 @@
 Title: Welcome to Paludis
 Author: Ciaran McCreesh <ciaran.mccreesh@blueyonder.co.uk>
+Author: I am a fish <fish@example.com>
 Content-Type: text/plain
 Posted: 2006-05-02
 Revision: 1
