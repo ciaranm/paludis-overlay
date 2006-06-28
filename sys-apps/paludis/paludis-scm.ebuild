@@ -16,7 +16,7 @@ IUSE="doc pink"
 DEPEND="
 	dev-cpp/libebt
 	>=app-shells/bash-3
-	=sys-devel/autoconf-2.59*
+	>=sys-devel/autoconf-2.59
 	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )"
 
