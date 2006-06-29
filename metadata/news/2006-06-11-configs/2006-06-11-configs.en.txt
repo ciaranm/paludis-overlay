@@ -2,7 +2,7 @@ Title: Paludis 0.3 Config File Changes
 Author: Ciaran McCreesh <ciaran.mccreesh@blueyonder.co.uk>
 Content-Type: text/plain
 Posted: 2006-06-11
-Revision: 1
+Revision: 2
 News-Item-Format: 1.0
 Display-If-Installed: >=sys-apps/paludis-0.3_alpha
 
@@ -17,7 +17,7 @@ earlier versions), they should be specified as a space separated list.
 Priority is given to eclasses in directories later in the list, but the
 ECLASSDIR variable is set from the first value.
 
-The 'profile' key is now 'profiles'. In only a single profile directory is
+The 'profile' key is now 'profiles'. If only a single profile directory is
 being used, the value format does not change. However, if multiple profile
 directories are desired, they should be specified in a space separated list.
 Priority is given to values defined later in the list.
