@@ -18,14 +18,16 @@ DEPEND="
 	>=app-shells/bash-3
 	>=sys-devel/autoconf-2.59
 	=sys-devel/automake-1.9*
-	doc? ( app-doc/doxygen )"
+	doc? ( app-doc/doxygen )
+	selinux? ( sys-libs/libselinux )"
 
 RDEPEND="
 	>=app-admin/eselect-1.0.2
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	!mips? ( sys-apps/sandbox )"
+	!mips? ( sys-apps/sandbox )
+	selinux? ( sys-libs/libselinux )"
 
 PROVIDE="virtual/portage"
 
