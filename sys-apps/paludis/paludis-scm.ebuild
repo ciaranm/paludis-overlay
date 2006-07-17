@@ -15,6 +15,7 @@ IUSE="doc pink selinux"
 
 DEPEND="
 	dev-cpp/libebt
+	dev-cpp/libwrapiter
 	>=app-shells/bash-3
 	>=sys-devel/autoconf-2.59
 	=sys-devel/automake-1.9*
