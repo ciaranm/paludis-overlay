@@ -1,0 +1,49 @@
+# Copyright 1999-2006 Ciaran McCreesh
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+inherit subversion
+
+DESCRIPTION="C++ template library for avoiding exposing privates via iterators"
+HOMEPAGE="http://libwrapiter.berlios.de/"
+SRC_URI=""
+
+LICENSE="GPL-2"
+SLOT="0"
+KEYWORDS="~x86"
+IUSE="doc"
+
+DEPEND="
+	>=sys-devel/autoconf-2.59
+	=sys-devel/automake-1.9*
+	doc? ( app-doc/doxygen )"
+
+RDEPEND=""
+
+ESVN_REPO_URI="svn://svn.berlios.de/libwrapiter/trunk"
+ESVN_BOOTSTRAP="./autogen.bash"
+
+src_compile() {
+	econf \
+		$(use_enable doc doxygen ) \
+		|| die "econf failed"
+
+	emake || die "emake failed"
+	if use doc ; then
+		make doxygen || die "make doxygen failed"
+	fi
+}
+
+src_install() {
+	make DESTDIR="${D}" install || die "install failed"
+	dodoc AUTHORS README ChangeLog NEWS
+
+	if use doc ; then
+		dohtml -r doc/html/
+	fi
+}
+
+src_test() {
+	emake check || die "Make check failed"
+}
+
