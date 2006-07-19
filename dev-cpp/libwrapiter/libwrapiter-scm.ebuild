@@ -39,7 +39,7 @@ src_install() {
 	dodoc AUTHORS README ChangeLog NEWS
 
 	if use doc ; then
-		dohtml -r doc/html/
+		dohtml -V -r doc/html/
 	fi
 }
 
