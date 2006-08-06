@@ -32,8 +32,18 @@ RDEPEND="
 
 PROVIDE="virtual/portage"
 
-ESVN_REPO_URI="svn://svn.berlios.de/paludis/trunk"
+ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
 ESVN_BOOTSTRAP="./autogen.bash"
+
+src_unpack() {
+	if subversion_wc_info && [[ "${ESVN_WC_URL}" != "${ESVN_REPO_URI}" ]]
+	then
+		die "SVN repo has moved. Please remove ${ESVN_STORE_DIR}/paludis" \
+			"and try again."
+	fi
+
+	subversion_src_unpack
+}
 
 src_compile() {
 	econf --disable-qa \
