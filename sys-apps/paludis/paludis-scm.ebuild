@@ -20,7 +20,8 @@ DEPEND="
 	>=sys-devel/autoconf-2.59
 	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )
-	selinux? ( sys-libs/libselinux )"
+	selinux? ( sys-libs/libselinux )
+	dev-util/pkgconfig"
 
 RDEPEND="
 	>=app-admin/eselect-1.0.2
