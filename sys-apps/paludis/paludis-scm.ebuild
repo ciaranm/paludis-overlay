@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~sparc ~x86"
-IUSE="doc pink selinux"
+IUSE="doc pink selinux qa"
 
 DEPEND="
 	dev-cpp/libebt
@@ -21,6 +21,7 @@ DEPEND="
 	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )
 	selinux? ( sys-libs/libselinux )
+	qa? ( dev-libs/pcre++ )
 	dev-util/pkgconfig"
 
 RDEPEND="
@@ -28,6 +29,7 @@ RDEPEND="
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
+	qa? ( dev-libs/pcre++ )
 	!mips? ( sys-apps/sandbox )
 	selinux? ( sys-libs/libselinux )"
 
@@ -52,6 +54,7 @@ src_compile() {
 		$(use_enable !mips sandbox ) \
 		$(use_enable pink) \
 		$(use_enable selinux) \
+		$(use_enable qa) \
 		|| die "econf failed"
 
 	emake || die "emake failed"
