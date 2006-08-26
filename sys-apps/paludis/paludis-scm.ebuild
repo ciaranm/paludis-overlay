@@ -21,7 +21,7 @@ DEPEND="
 	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )
 	selinux? ( sys-libs/libselinux )
-	qa? ( dev-libs/pcre++ )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 )
 	dev-util/pkgconfig"
 
 RDEPEND="
@@ -29,7 +29,7 @@ RDEPEND="
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	qa? ( dev-libs/pcre++ )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 )
 	!mips? ( sys-apps/sandbox )
 	selinux? ( sys-libs/libselinux )"
 
