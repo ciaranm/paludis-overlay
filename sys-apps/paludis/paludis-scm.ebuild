@@ -49,7 +49,7 @@ src_unpack() {
 }
 
 src_compile() {
-	econf --disable-qa \
+	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
 		$(use_enable pink) \
