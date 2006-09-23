@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~sparc ~x86"
-IUSE="doc pink selinux qa"
+IUSE="doc pink selinux qa ruby"
 
 DEPEND="
 	dev-cpp/libebt
@@ -22,7 +22,8 @@ DEPEND="
 	doc? ( app-doc/doxygen )
 	selinux? ( sys-libs/libselinux )
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 )
-	dev-util/pkgconfig"
+	dev-util/pkgconfig
+	ruby? ( >=dev-lang/ruby-1.8 )"
 
 RDEPEND="
 	>=app-admin/eselect-1.0.2
@@ -31,7 +32,8 @@ RDEPEND="
 	net-misc/rsync
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 )
 	!mips? ( sys-apps/sandbox )
-	selinux? ( sys-libs/libselinux )"
+	selinux? ( sys-libs/libselinux )
+	ruby? ( >=dev-lang/ruby-1.8 )"
 
 PROVIDE="virtual/portage"
 
@@ -55,6 +57,7 @@ src_compile() {
 		$(use_enable pink) \
 		$(use_enable selinux) \
 		$(use_enable qa) \
+		$(use_enable ruby) \
 		|| die "econf failed"
 
 	emake || die "emake failed"
