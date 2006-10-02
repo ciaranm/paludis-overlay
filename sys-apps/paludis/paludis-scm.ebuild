@@ -21,7 +21,7 @@ DEPEND="
 	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )
 	selinux? ( sys-libs/libselinux )
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6  app-crypt/gnupg )
 	dev-util/pkgconfig
 	ruby? ( >=dev-lang/ruby-1.8 )"
 
@@ -30,7 +30,7 @@ RDEPEND="
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6  app-crypt/gnupg )
 	!mips? ( sys-apps/sandbox )
 	selinux? ( sys-libs/libselinux )
 	ruby? ( >=dev-lang/ruby-1.8 )"
@@ -79,5 +79,12 @@ src_test() {
 	# Work around Portage bug
 	addwrite /var/cache
 	emake check || die "Make check failed"
+}
+
+pkg_postinst() {
+	echo
+	einfo "Before using Paludis and before reporting issues, you should read:"
+	einfo "    http://paludis.berlios.de/KnownIssues.html"
+	echo
 }
 
