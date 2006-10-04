@@ -1,1 +1,2 @@
 ~sys-apps/paludis-scm
+~dev-cpp/libwrapiter-scm
