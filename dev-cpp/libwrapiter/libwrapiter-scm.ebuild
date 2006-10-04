@@ -8,7 +8,7 @@ DESCRIPTION="C++ template library for avoiding exposing privates via iterators"
 HOMEPAGE="http://libwrapiter.berlios.de/"
 SRC_URI=""
 
-LICENSE="GPL-2"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~sparc ~x86"
 IUSE="doc"

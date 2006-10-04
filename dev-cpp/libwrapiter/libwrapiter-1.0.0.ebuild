@@ -6,7 +6,7 @@ DESCRIPTION="C++ template library for avoiding exposing privates via iterators"
 HOMEPAGE="http://libwrapiter.berlios.de/"
 SRC_URI="http://download.berlios.de/libwrapiter/${P}.tar.bz2"
 
-LICENSE="GPL-2"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~sparc ~x86"
 IUSE="doc"
@@ -17,9 +17,6 @@ DEPEND="
 	doc? ( app-doc/doxygen )"
 
 RDEPEND=""
-
-ESVN_REPO_URI="svn://svn.berlios.de/libwrapiter/trunk"
-ESVN_BOOTSTRAP="./autogen.bash"
 
 src_compile() {
 	econf \
