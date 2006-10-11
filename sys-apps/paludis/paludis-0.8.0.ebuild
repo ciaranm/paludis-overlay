@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit subversion
-
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.berlios.de/"
-SRC_URI=""
+SRC_URI="http://download.berlios.de/paludis/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -23,7 +21,6 @@ DEPEND="
 	selinux? ( sys-libs/libselinux )
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6  app-crypt/gnupg )
 	glsa? ( >=dev-libs/libxml2-2.6 )
-	dev-util/pkgconfig
 	ruby? ( >=dev-lang/ruby-1.8 )"
 
 RDEPEND="
@@ -31,7 +28,7 @@ RDEPEND="
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6  app-crypt/gnupg )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	glsa? ( >=dev-libs/libxml2-2.6 )
 	!mips? ( sys-apps/sandbox )
 	selinux? ( sys-libs/libselinux )
@@ -39,28 +36,14 @@ RDEPEND="
 
 PROVIDE="virtual/portage"
 
-ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
-ESVN_BOOTSTRAP="./autogen.bash"
-
-src_unpack() {
-	if subversion_wc_info && [[ "${ESVN_WC_URL}" != "${ESVN_REPO_URI}" ]]
-	then
-		die "SVN repo has moved. Please remove ${ESVN_STORE_DIR}/paludis" \
-			"and try again."
-	fi
-
-	subversion_src_unpack
-}
-
 src_compile() {
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
 		$(use_enable pink) \
 		$(use_enable selinux) \
-		$(use_enable qa) \
-		$(use_enable ruby) \
 		$(use_enable glsa) \
+		$(use_enable qa) \
 		|| die "econf failed"
 
 	emake || die "emake failed"
