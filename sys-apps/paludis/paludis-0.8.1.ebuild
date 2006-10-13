@@ -44,6 +44,7 @@ src_compile() {
 		$(use_enable selinux) \
 		$(use_enable glsa) \
 		$(use_enable qa) \
+		$(use_enable ruby) \
 		|| die "econf failed"
 
 	emake || die "emake failed"
