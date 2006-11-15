@@ -56,12 +56,13 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "install failed"
+	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README ChangeLog NEWS
 
-	dobashcompletion bash-completion/adjutrix adjutrix
-	dobashcompletion bash-completion/paludis paludis
-	dobashcompletion bash-completion/qualudis qualudis
+	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
+	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
+	use qa && \
+		BASH_COMPLETION_NAME="qualudis" dobashcompletion bash-completion/qualudis
 
 	if use doc ; then
 		dohtml -r -V doc/html/
@@ -79,7 +80,16 @@ src_test() {
 }
 
 pkg_postinst() {
-	bash-completion_pkg_postinst
+	if use bash-completion ; then
+		echo
+		einfo "The following bash completion scripts have been installed:"
+		einfo "  paludis"
+		einfo "  adjutrix"
+		use qa && einfo "  qualudis"
+		einfo
+		einfo "To enable these scripts, run:"
+		einfo "  eselect bashcomp enable <scriptname>"
+	fi
 
 	echo
 	einfo "Before using Paludis and before reporting issues, you should read:"
