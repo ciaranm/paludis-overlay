@@ -21,7 +21,7 @@ DEPEND="
 	=sys-devel/automake-1.9*
 	doc? ( app-doc/doxygen )
 	selinux? ( sys-libs/libselinux )
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6  app-crypt/gnupg )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	glsa? ( >=dev-libs/libxml2-2.6 )
 	dev-util/pkgconfig
 	ruby? ( >=dev-lang/ruby-1.8 )"
@@ -31,7 +31,7 @@ RDEPEND="
 	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6  app-crypt/gnupg )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	glsa? ( >=dev-libs/libxml2-2.6 )
 	!mips? ( sys-apps/sandbox )
 	selinux? ( sys-libs/libselinux )
@@ -84,10 +84,8 @@ src_install() {
 }
 
 src_test() {
-	# Work around Portage bug
-	addwrite /var/cache
-
-	# Work around another Portage bug
+	# Work around Portage bugs
+	export PALUDIS_DO_NOTHING_SANDBOXY="portage sucks"
 	export BASH_ENV=/dev/null
 
 	emake check || die "Make check failed"
