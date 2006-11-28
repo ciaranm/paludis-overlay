@@ -15,7 +15,7 @@ IUSE="doc pink selinux qa ruby glsa"
 
 DEPEND="
 	dev-cpp/libebt
-	dev-cpp/libwrapiter
+	>=dev-cpp/libwrapiter-1.0.0
 	>=app-shells/bash-3
 	>=sys-devel/autoconf-2.59
 	=sys-devel/automake-1.9*
