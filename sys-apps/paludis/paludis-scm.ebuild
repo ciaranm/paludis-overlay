@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit subversion bash-completion
+inherit subversion bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.berlios.de/"
@@ -41,6 +41,19 @@ PROVIDE="virtual/portage"
 
 ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
 ESVN_BOOTSTRAP="./autogen.bash"
+
+pkg_setup() {
+	use amd64 && replace-flags -Os -O2
+	if is-ldflagq -Wl,--as-needed || is-ldflagq --as-needed ; then
+		echo
+		ewarn "Stripping as-needed from LDFLAGS."
+		ewarn "You should not set this variable globally. Please read:"
+		ewarn "    http://ciaranm.org/show_post.pl?post_id=13"
+		echo
+		epause 10
+	fi
+	filter-ldflags -Wl,--as-needed --as-needed
+}
 
 src_unpack() {
 	if subversion_wc_info && [[ "${ESVN_WC_URL}" != "${ESVN_REPO_URI}" ]]
