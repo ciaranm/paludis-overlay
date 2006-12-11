@@ -11,31 +11,32 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="doc pink selinux qa ruby glsa"
+IUSE="doc pink selinux qa ruby glsa cran gems"
 
-DEPEND="
+COMMON_DEPEND="
+	>=app-shells/bash-3
+	selinux? ( sys-libs/libselinux )
+	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
+	glsa? ( >=dev-libs/libxml2-2.6 )
+	ruby? ( >=dev-lang/ruby-1.8 )
+	gems? (
+		dev-libs/libyaml
+		dev-ruby/rubygems
+	)"
+
+DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
 	>=dev-cpp/libwrapiter-1.0.0
-	>=app-shells/bash-3
-	>=sys-devel/autoconf-2.59
-	=sys-devel/automake-1.9*
+	sys-devel/autoconf:2.5
+	sys-devel/automake:1.9
 	doc? ( app-doc/doxygen )
-	selinux? ( sys-libs/libselinux )
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
-	glsa? ( >=dev-libs/libxml2-2.6 )
-	dev-util/pkgconfig
-	ruby? ( >=dev-lang/ruby-1.8 )"
+	dev-util/pkgconfig"
 
-RDEPEND="
+RDEPEND="${COMMON_DEPEND}
 	>=app-admin/eselect-1.0.2
-	>=app-shells/bash-3
 	net-misc/wget
 	net-misc/rsync
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
-	glsa? ( >=dev-libs/libxml2-2.6 )
-	!mips? ( sys-apps/sandbox )
-	selinux? ( sys-libs/libselinux )
-	ruby? ( >=dev-lang/ruby-1.8 )"
+	!mips? ( sys-apps/sandbox )"
 
 PROVIDE="virtual/portage"
 
@@ -66,6 +67,7 @@ src_unpack() {
 }
 
 src_compile() {
+	local repositories=`echo default $(usev cran) $(usev gems) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
@@ -74,6 +76,7 @@ src_compile() {
 		$(use_enable qa) \
 		$(use_enable ruby) \
 		$(use_enable glsa) \
+		--with-repositories=${repositories} \
 		|| die "econf failed"
 
 	emake || die "emake failed"
