@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="doc pink selinux qa ruby glsa cran gems"
+IUSE="contrarius cran doc gems glsa pink qa ruby selinux zsh-completion"
 
 COMMON_DEPEND="
 	>=app-shells/bash-3
@@ -29,7 +29,7 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-cpp/libwrapiter-1.0.0
 	sys-devel/autoconf:2.5
 	sys-devel/automake:1.9
-	doc? ( app-doc/doxygen )
+	doc? ( app-doc/doxygen media-gfx/imagemagick )
 	dev-util/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
@@ -68,6 +68,7 @@ src_unpack() {
 
 src_compile() {
 	local repositories=`echo default $(usev cran) $(usev gems) | tr -s \  ,`
+	local clients=`echo default $(usev contrarius) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
@@ -77,6 +78,7 @@ src_compile() {
 		$(use_enable ruby) \
 		$(use_enable glsa) \
 		--with-repositories=${repositories} \
+		--with-clients=${clients} \
 		|| die "econf failed"
 
 	emake || die "emake failed"
@@ -95,7 +97,14 @@ src_install() {
 		BASH_COMPLETION_NAME="qualudis" dobashcompletion bash-completion/qualudis
 
 	if use doc ; then
-		dohtml -r -V doc/html/
+		dohtml -r -V doc/www/*
+	fi
+
+	if use zsh-completion ; then
+		insinto /usr/share/zsh/site-functions
+		doins zsh-completion/_paludis
+		doins zsh-completion/_adjutrix
+		doins zsh-completion/_paludis_packages
 	fi
 }
 
