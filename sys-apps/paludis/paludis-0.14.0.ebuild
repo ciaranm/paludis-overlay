@@ -6,7 +6,7 @@ inherit bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI=""
+SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
