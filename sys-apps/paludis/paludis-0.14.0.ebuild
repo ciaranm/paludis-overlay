@@ -27,8 +27,6 @@ COMMON_DEPEND="
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
 	>=dev-cpp/libwrapiter-1.0.0
-	sys-devel/autoconf:2.5
-	sys-devel/automake:1.9
 	doc? ( app-doc/doxygen media-gfx/imagemagick )"
 
 RDEPEND="${COMMON_DEPEND}
