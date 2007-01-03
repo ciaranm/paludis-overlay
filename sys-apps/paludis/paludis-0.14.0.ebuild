@@ -2,44 +2,46 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit bash-completion flag-o-matic eutils
+inherit bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
-HOMEPAGE="http://paludis.berlios.de/"
-SRC_URI="http://download.berlios.de/paludis/${P}.tar.bz2"
+HOMEPAGE="http://paludis.pioto.org/"
+SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="doc pink selinux qa ruby glsa"
+IUSE="contrarius cran doc gems glsa pink qa ruby selinux zsh-completion"
 
-DEPEND="
-	dev-cpp/libebt
-	>=dev-cpp/libwrapiter-1.0.0
+COMMON_DEPEND="
 	>=app-shells/bash-3
-	>=sys-devel/autoconf-2.59
-	=sys-devel/automake-1.9*
-	doc? ( app-doc/doxygen )
 	selinux? ( sys-libs/libselinux )
-	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6  app-crypt/gnupg )
-	glsa? ( >=dev-libs/libxml2-2.6 )
-	ruby? ( >=dev-lang/ruby-1.8 )"
-
-RDEPEND="
-	>=app-admin/eselect-1.0.2
-	>=app-shells/bash-3
-	net-misc/wget
-	net-misc/rsync
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	glsa? ( >=dev-libs/libxml2-2.6 )
-	!mips? ( sys-apps/sandbox )
-	selinux? ( sys-libs/libselinux )
-	ruby? ( >=dev-lang/ruby-1.8 )"
+	ruby? ( >=dev-lang/ruby-1.8 )
+	gems? (
+		dev-libs/libyaml
+		dev-ruby/rubygems
+	)"
+
+DEPEND="${COMMON_DEPEND}
+	dev-cpp/libebt
+	>=dev-cpp/libwrapiter-1.0.0
+	sys-devel/autoconf:2.5
+	sys-devel/automake:1.9
+	doc? ( app-doc/doxygen media-gfx/imagemagick )"
+
+RDEPEND="${COMMON_DEPEND}
+	>=app-admin/eselect-1.0.2
+	net-misc/wget
+	net-misc/rsync
+	!mips? ( sys-apps/sandbox )"
 
 PROVIDE="virtual/portage"
 
 pkg_setup() {
 	use amd64 && replace-flags -Os -O2
+
 	if is-ldflagq -Wl,--as-needed || is-ldflagq --as-needed ; then
 		echo
 		ewarn "Stripping as-needed from LDFLAGS."
@@ -52,15 +54,18 @@ pkg_setup() {
 }
 
 src_compile() {
+	local repositories=`echo default $(usev cran) $(usev gems) | tr -s \  ,`
+	local clients=`echo default $(usev contrarius) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
 		$(use_enable pink) \
 		$(use_enable selinux) \
-		$(use_enable glsa) \
 		$(use_enable qa) \
 		$(use_enable ruby) \
-		--disable-gtk --disable-gtk-tests \
+		$(use_enable glsa) \
+		--with-repositories=${repositories} \
+		--with-clients=${clients} \
 		|| die "econf failed"
 
 	emake || die "emake failed"
@@ -79,7 +84,14 @@ src_install() {
 		BASH_COMPLETION_NAME="qualudis" dobashcompletion bash-completion/qualudis
 
 	if use doc ; then
-		dohtml -r -V doc/html/
+		dohtml -r -V doc/www/*
+	fi
+
+	if use zsh-completion ; then
+		insinto /usr/share/zsh/site-functions
+		doins zsh-completion/_paludis
+		doins zsh-completion/_adjutrix
+		doins zsh-completion/_paludis_packages
 	fi
 }
 
@@ -105,7 +117,7 @@ pkg_postinst() {
 
 	echo
 	einfo "Before using Paludis and before reporting issues, you should read:"
-	einfo "    http://paludis.berlios.de/KnownIssues.html"
+	einfo "    http://paludis.pioto.org/faq.html"
 	echo
 }
 

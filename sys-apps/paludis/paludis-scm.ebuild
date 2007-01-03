@@ -5,7 +5,7 @@
 inherit subversion bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
-HOMEPAGE="http://paludis.berlios.de/"
+HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
 LICENSE="GPL-2"
@@ -130,7 +130,7 @@ pkg_postinst() {
 
 	echo
 	einfo "Before using Paludis and before reporting issues, you should read:"
-	einfo "    http://paludis.berlios.de/KnownIssues.html"
+	einfo "    http://paludis.pioto.org/faq.html"
 	echo
 }
 
