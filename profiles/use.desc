@@ -1,0 +1,11 @@
+bash-completion - Enable bash completion support
+contrarius - Enable contrarius, the cross toolchain generation client
+cran - Enable support for CRAN repositories
+doc - Add extra documentation
+gems - Enable support for Ruby Gems repositories (incomplete)
+glsa - Enable GLSA (Gentoo security advisory) handling support
+pink - Use an obnoxious girly colour scheme
+qa - Enable the qualudis QA client and associated libraries
+ruby - Build Ruby interface bindings
+selinux - Enable support for Security Enhanced Linux (internal use only)
+zsh-completion - Enable ZSH completion support
