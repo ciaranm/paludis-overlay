@@ -11,18 +11,14 @@ SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="contrarius cran doc gems glsa pink qa ruby selinux zsh-completion"
+IUSE="contrarius cran doc glsa pink qa ruby selinux zsh-completion"
 
 COMMON_DEPEND="
 	>=app-shells/bash-3
 	selinux? ( sys-libs/libselinux )
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	glsa? ( >=dev-libs/libxml2-2.6 )
-	ruby? ( >=dev-lang/ruby-1.8 )
-	gems? (
-		dev-libs/libyaml
-		dev-ruby/rubygems
-	)"
+	ruby? ( >=dev-lang/ruby-1.8 )"
 
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
@@ -52,7 +48,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	local repositories=`echo default $(usev cran) $(usev gems) | tr -s \  ,`
+	local repositories=`echo default $(usev cran) | tr -s \  ,`
 	local clients=`echo default $(usev contrarius) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
