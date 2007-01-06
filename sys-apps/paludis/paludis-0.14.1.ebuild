@@ -47,6 +47,11 @@ pkg_setup() {
 	filter-ldflags -Wl,--as-needed --as-needed
 }
 
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
+	epatch ${FILESDIR}/${P}-vdb-path.patch
+
 src_compile() {
 	local repositories=`echo default $(usev cran) | tr -s \  ,`
 	local clients=`echo default $(usev contrarius) | tr -s \  ,`
