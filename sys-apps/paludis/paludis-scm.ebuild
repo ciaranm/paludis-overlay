@@ -11,12 +11,13 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="contrarius cran doc gems glsa pink qa ruby selinux zsh-completion"
+IUSE="contrarius cran doc gems glsa inquisitio pink qa ruby selinux zsh-completion"
 
 COMMON_DEPEND="
 	>=app-shells/bash-3
 	selinux? ( sys-libs/libselinux )
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
+	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
 	ruby? ( >=dev-lang/ruby-1.8 )
 	gems? (
@@ -44,31 +45,12 @@ ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
 ESVN_BOOTSTRAP="./autogen.bash"
 
 pkg_setup() {
-	use amd64 && replace-flags -Os -O2
-	if is-ldflagq -Wl,--as-needed || is-ldflagq --as-needed ; then
-		echo
-		ewarn "Stripping as-needed from LDFLAGS."
-		ewarn "You should not set this variable globally. Please read:"
-		ewarn "    http://ciaranm.org/show_post.pl?post_id=13"
-		echo
-		epause 10
-	fi
-	filter-ldflags -Wl,--as-needed --as-needed
-}
-
-src_unpack() {
-	if subversion_wc_info && [[ "${ESVN_WC_URL}" != "${ESVN_REPO_URI}" ]]
-	then
-		die "SVN repo has moved. Please remove ${ESVN_STORE_DIR}/paludis" \
-			"and try again."
-	fi
-
-	subversion_src_unpack
+	replace-flags -Os -O2
 }
 
 src_compile() {
 	local repositories=`echo default $(usev cran) $(usev gems) | tr -s \  ,`
-	local clients=`echo default $(usev contrarius) | tr -s \  ,`
+	local clients=`echo default $(usev contrarius) $(usev inquisitio) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
