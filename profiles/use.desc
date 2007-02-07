@@ -2,6 +2,7 @@ bash-completion - Enable bash completion support
 contrarius - Enable contrarius, the cross toolchain generation client
 cran - Enable support for CRAN repositories
 doc - Add extra documentation
+inquisitio - Enable inquisitio, the search client
 gems - Enable support for Ruby Gems repositories (incomplete)
 glsa - Enable GLSA (Gentoo security advisory) handling support
 pink - Use an obnoxious girly colour scheme
