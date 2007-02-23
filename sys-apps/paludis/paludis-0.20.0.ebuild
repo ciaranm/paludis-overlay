@@ -49,6 +49,12 @@ pkg_setup() {
 	replace-flags -Os -O2
 }
 
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
+	epatch "${FILESDIR}"/${PV}-dotfiles.patch
+}
+
 src_compile() {
 	local repositories=`echo default $(usev cran) | tr -s \  ,`
 	local clients=`echo default $(usev contrarius) $(usev inquisitio) | tr -s \  ,`
