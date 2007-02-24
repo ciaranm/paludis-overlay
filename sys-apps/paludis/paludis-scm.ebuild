@@ -45,8 +45,14 @@ PROVIDE="virtual/portage"
 ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
 ESVN_BOOTSTRAP="./autogen.bash"
 
+create-paludis-user() {
+	enewgroup "paludisbuild"
+	enewuser "paludisbuild" -1 "/bin/false" "/dev/null" "paludisbuild"
+}
+
 pkg_setup() {
 	replace-flags -Os -O2
+	create-paludis-user
 }
 
 src_compile() {
@@ -97,6 +103,10 @@ src_test() {
 	export BASH_ENV=/dev/null
 
 	emake check || die "Make check failed"
+}
+
+pkg_preinst() {
+	create-paludis-user
 }
 
 pkg_postinst() {
