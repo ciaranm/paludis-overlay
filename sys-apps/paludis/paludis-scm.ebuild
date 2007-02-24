@@ -47,7 +47,7 @@ ESVN_BOOTSTRAP="./autogen.bash"
 
 create-paludis-user() {
 	enewgroup "paludisbuild"
-	enewuser "paludisbuild" -1 "/bin/false" "/dev/null" "paludisbuild"
+	enewuser "paludisbuild" -1 -1 -1 "paludisbuild"
 }
 
 pkg_setup() {
