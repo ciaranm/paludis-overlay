@@ -11,11 +11,10 @@ SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="contrarius cran doc glsa inquisitio pink qa ruby selinux zsh-completion"
+IUSE="contrarius cran doc glsa inquisitio pink qa ruby zsh-completion"
 
 COMMON_DEPEND="
 	>=app-shells/bash-3
-	selinux? ( sys-libs/libselinux )
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
@@ -62,7 +61,6 @@ src_compile() {
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
 		$(use_enable pink) \
-		$(use_enable selinux) \
 		$(use_enable qa) \
 		$(use_enable ruby) \
 		$(use_enable glsa) \
