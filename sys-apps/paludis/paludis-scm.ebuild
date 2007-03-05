@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Ciaran McCreesh
+# Copyright 1999-2007 Ciaran McCreesh
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -81,7 +81,11 @@ src_install() {
 	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
 	use qa && \
-		BASH_COMPLETION_NAME="qualudis" dobashcompletion bash-completion/qualudis
+		BASH_COMPLETION_NAME="qualudis" \
+		dobashcompletion bash-completion/qualudis
+	use contrarius && \
+		BASH_COMPLETION_NAME="contrarius" \
+		dobashcompletion bash-completion/contrarius
 
 	if use doc ; then
 		dohtml -r -V doc/www/*
@@ -114,6 +118,7 @@ pkg_postinst() {
 		einfo "  paludis"
 		einfo "  adjutrix"
 		use qa && einfo "  qualudis"
+		use contrarius && einfo "  contrarius"
 		einfo
 		einfo "To enable these scripts, run:"
 		einfo "  eselect bashcomp enable <scriptname>"
