@@ -86,6 +86,9 @@ src_install() {
 	use contrarius && \
 		BASH_COMPLETION_NAME="contrarius" \
 		dobashcompletion bash-completion/contrarius
+	use inquisitio && \
+		BASH_COMPLETION_NAME="inquisitio" \
+		dobashcompletion bash-completion/inquisitio
 
 	if use doc ; then
 		dohtml -r -V doc/www/*
@@ -119,6 +122,7 @@ pkg_postinst() {
 		einfo "  adjutrix"
 		use qa && einfo "  qualudis"
 		use contrarius && einfo "  contrarius"
+		use inquisitio && einfo "  inquisitio"
 		einfo
 		einfo "To enable these scripts, run:"
 		einfo "  eselect bashcomp enable <scriptname>"
