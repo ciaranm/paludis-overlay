@@ -4,6 +4,8 @@
 
 inherit subversion
 
+EAPI="paludis-1"
+
 DESCRIPTION="LibYAML, a YAML 1.1 Parser and Emitter in C"
 HOMEPAGE="http://pyyaml.org/wiki/LibYAML"
 SRC_URI=""
