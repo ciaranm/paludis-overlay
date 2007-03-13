@@ -4,6 +4,8 @@
 
 inherit subversion bash-completion eutils flag-o-matic
 
+EAPI="paludis-1"
+
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
