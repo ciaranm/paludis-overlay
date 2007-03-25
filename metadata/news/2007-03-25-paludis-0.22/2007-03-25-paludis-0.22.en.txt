@@ -1,0 +1,39 @@
+Title: Changes for Paludis 0.22
+Author: Ciaran McCreesh <ciaranm@ciaranm.org>
+Content-Type: text/plain
+Posted: 2007-03-25
+Revision: 1
+News-Item-Format: 1.0
+Display-If-Installed: >=sys-apps/paludis-0.22
+
+As of version 0.22, Paludis supports carrying out certain tasks (e.g.
+compiling and fetching packages) using reduced privileges, similar to
+Portage's userpriv feature. If you have previously used an older Paludis
+version, you will need to make certain changes to enable this
+functionality:
+
+* The 'buildroot' directory for ebuild format repositories (by default,
+  '/var/tmp/paludis') must be owned by the group 'paludisbuild', and
+  must have permissions 'rwsrwsr-x'. The easiest way to set this up is:
+
+    rm -fr /var/tmp/paludis
+    mkdir /var/tmp/paludis
+    chgrp paludisbuild /var/tmp/paludis
+    chmod g+rwx /var/tmp/paludis
+    chmod +s /var/tmp/paludis
+
+* The 'distdir' directory for any ebuild format repositories must also
+  be owned by the group 'paludisbuild' and must have permissions
+  'rwsrwsr-x'.
+
+* The Paludis configuration directory must be readable by the group
+  'paludisbuild'. This means that the root user's home directory should
+  no longer be used for configuration.
+
+The user and group used for reduced privileges is controlled via the
+confdir/environment.conf file. The key 'reduced_username' is used to
+control the username; this user's default group is used for permissions.
+The default value for this key is 'paludisbuild', and the default group
+for the 'paludisbuild' user is also named 'paludisbuild'. To disable
+userpriv functionality, use the username 'root'.
+
