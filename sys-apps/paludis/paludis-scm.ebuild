@@ -13,7 +13,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
-IUSE="contrarius cran doc glsa inquisitio pink qa ruby zsh-completion"
+IUSE="contrarius cran doc glsa inquisitio paludis pink qa ruby zsh-completion"
 
 COMMON_DEPEND="
 	>=app-shells/bash-3
