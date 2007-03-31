@@ -6,6 +6,7 @@ inquisitio - Enable inquisitio, the search client
 gems - Enable support for Ruby Gems repositories (incomplete)
 glsa - Enable GLSA (Gentoo security advisory) handling support
 pink - Use an obnoxious girly colour scheme
+portage - Enable experimental support for Portage configuration formats
 qa - Enable the qualudis QA client and associated libraries
 ruby - Build Ruby interface bindings
 selinux - Enable support for Security Enhanced Linux (internal use only)
