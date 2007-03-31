@@ -12,7 +12,7 @@ SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 IUSE="contrarius cran doc glsa inquisitio pink qa ruby zsh-completion"
 
 COMMON_DEPEND="
@@ -20,12 +20,9 @@ COMMON_DEPEND="
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
-	ruby? ( >=dev-lang/ruby-1.8 )"
-
-# Nasty hack for tr1 that will be changed whenever a proper solution is
-# available. See discussion on gentoo-dev list.
-COMMON_DEPEND="${COMMON_DEPEND}
-	|| ( >=sys-devel/gcc-4.1.1 >=dev-libs/boost-1.33.1 )"
+	ruby? ( >=dev-lang/ruby-1.8 )
+	virtual/c++-tr1-memory
+	virtual/c++-tr1-type-traits"
 
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
@@ -39,7 +36,7 @@ RDEPEND="${COMMON_DEPEND}
 	>=app-admin/eselect-1.0.2
 	net-misc/wget
 	net-misc/rsync
-	!mips? ( sys-apps/sandbox )"
+	sys-apps/sandbox"
 
 PROVIDE="virtual/portage"
 
@@ -61,13 +58,13 @@ src_compile() {
 	local clients=`echo default $(usev contrarius) $(usev inquisitio) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
-		$(use_enable !mips sandbox ) \
 		$(use_enable pink) \
 		$(use_enable qa) \
 		$(use_enable ruby) \
 		$(use_enable glsa) \
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
+		--enable-sandbox \
 		|| die "econf failed"
 
 	emake || die "emake failed"

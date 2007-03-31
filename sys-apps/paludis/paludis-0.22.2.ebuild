@@ -12,7 +12,7 @@ SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 IUSE="contrarius cran doc glsa inquisitio pink portage qa ruby zsh-completion"
 
 COMMON_DEPEND="
@@ -37,7 +37,7 @@ RDEPEND="${COMMON_DEPEND}
 	>=app-admin/eselect-1.0.2
 	net-misc/wget
 	net-misc/rsync
-	!mips? ( sys-apps/sandbox )"
+	sys-apps/sandbox"
 
 PROVIDE="virtual/portage"
 
@@ -60,11 +60,11 @@ src_compile() {
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
-		$(use_enable !mips sandbox ) \
 		$(use_enable pink) \
 		$(use_enable qa) \
 		$(use_enable ruby) \
 		$(use_enable glsa) \
+		--enable-sandbox \
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
