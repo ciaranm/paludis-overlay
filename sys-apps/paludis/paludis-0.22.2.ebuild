@@ -13,19 +13,17 @@ SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="contrarius cran doc glsa inquisitio pink qa ruby zsh-completion"
+IUSE="contrarius cran doc glsa inquisitio pink portage qa ruby zsh-completion"
 
 COMMON_DEPEND="
 	>=app-shells/bash-3
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
-	ruby? ( >=dev-lang/ruby-1.8 )"
-
-# Nasty hack for tr1 that will be changed whenever a proper solution is
-# available. See discussion on gentoo-dev list.
-COMMON_DEPEND="${COMMON_DEPEND}
-	|| ( >=sys-devel/gcc-4.1.1 >=dev-libs/boost-1.33.1 )"
+	ruby? ( >=dev-lang/ruby-1.8 )
+	virtual/c++-tr1-functional
+	virtual/c++-tr1-memory
+	virtual/c++-tr1-type-traits"
 
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
@@ -46,19 +44,20 @@ PROVIDE="virtual/portage"
 # ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
 # ESVN_BOOTSTRAP="./autogen.bash"
 
-pkg_setup() {
-	replace-flags -Os -O2
+create-paludis-user() {
+	enewgroup "paludisbuild"
+	enewuser "paludisbuild" -1 -1 -1 "paludisbuild"
 }
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	epatch "${FILESDIR}"/${PV}-dotfiles.patch
+pkg_setup() {
+	replace-flags -Os -O2
+	create-paludis-user
 }
 
 src_compile() {
-	local repositories=`echo default $(usev cran) | tr -s \  ,`
-	local clients=`echo default $(usev contrarius) $(usev inquisitio) | tr -s \  ,`
+	local repositories=`echo default $(usev cran ) | tr -s \  ,`
+	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) | tr -s \  ,`
+	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable !mips sandbox ) \
@@ -68,6 +67,7 @@ src_compile() {
 		$(use_enable glsa) \
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
+		--with-environments=${environments} \
 		|| die "econf failed"
 
 	emake || die "emake failed"
@@ -104,6 +104,10 @@ src_test() {
 	export BASH_ENV=/dev/null
 
 	emake check || die "Make check failed"
+}
+
+pkg_preinst() {
+	create-paludis-user
 }
 
 pkg_postinst() {
