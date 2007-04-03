@@ -10,10 +10,10 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-LICENSE="GPL-2"
+IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby vim zsh-completion"
+LICENSE="GPL-2 vim? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
-IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby zsh-completion"
 
 COMMON_DEPEND="
 	>=app-shells/bash-3
@@ -38,6 +38,11 @@ RDEPEND="${COMMON_DEPEND}
 	net-misc/wget
 	net-misc/rsync
 	sys-apps/sandbox"
+
+# Keep this as a PDEPEND. It avoids issues when Paludis is used as the
+# default virtual/portage provider.
+PDEPEND="
+	vim? ( >=app-editors/vim-core-7 )"
 
 PROVIDE="virtual/portage"
 
@@ -64,6 +69,7 @@ src_compile() {
 		$(use_enable qa) \
 		$(use_enable ruby) \
 		$(use_enable glsa) \
+		$(use_enable vim) --with-vim-install-dir=/usr/share/vim/vimfiles \
 		--enable-sandbox \
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
