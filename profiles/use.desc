@@ -10,5 +10,5 @@ portage - Enable experimental support for Portage configuration formats
 qa - Enable the qualudis QA client and associated libraries
 ruby - Build Ruby interface bindings
 selinux - Enable support for Security Enhanced Linux (internal use only)
-vim - Include Vim syntax support
+vim-syntax - Include Vim syntax support
 zsh-completion - Enable ZSH completion support

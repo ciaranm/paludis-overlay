@@ -10,8 +10,8 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby vim zsh-completion"
-LICENSE="GPL-2 vim? ( vim )"
+IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby vim-syntax zsh-completion"
+LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 
@@ -69,7 +69,8 @@ src_compile() {
 		$(use_enable qa) \
 		$(use_enable ruby) \
 		$(use_enable glsa) \
-		$(use_enable vim) --with-vim-install-dir=/usr/share/vim/vimfiles \
+		$(use_enable vim-syntax vim ) \
+		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--enable-sandbox \
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
