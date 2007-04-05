@@ -42,7 +42,7 @@ RDEPEND="${COMMON_DEPEND}
 # Keep this as a PDEPEND. It avoids issues when Paludis is used as the
 # default virtual/portage provider.
 PDEPEND="
-	vim? ( >=app-editors/vim-core-7 )"
+	vim-syntax? ( >=app-editors/vim-core-7 )"
 
 PROVIDE="virtual/portage"
 
