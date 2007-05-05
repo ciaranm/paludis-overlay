@@ -10,8 +10,9 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 
-IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby zsh-completion"
-LICENSE="GPL-2"
+IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby vim-syntax
+	zsh-completion"
+LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 
@@ -59,10 +60,11 @@ src_compile() {
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
-		$(use_enable pink) \
-		$(use_enable qa) \
-		$(use_enable ruby) \
-		$(use_enable glsa) \
+		$(use_enable pink ) \
+		$(use_enable qa ) \
+		$(use_enable ruby ) \
+		$(use_enable glsa ) \
+		$(use_enable vim-syntax vim ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--enable-sandbox \
 		--with-repositories=${repositories} \
