@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby vim-syntax zsh-completion"
+IUSE="contrarius cran doc gems gtk glsa inquisitio portage pink qa ruby vim-syntax zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -21,15 +21,17 @@ COMMON_DEPEND="
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
 	ruby? ( >=dev-lang/ruby-1.8 )
+	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
+	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )
 	virtual/c++-tr1-functional
 	virtual/c++-tr1-memory
 	virtual/c++-tr1-type-traits"
 
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
-	>=dev-cpp/libwrapiter-1.0.0
+	>=dev-cpp/libwrapiter-1.2.0
 	sys-devel/autoconf:2.5
-	sys-devel/automake:1.9
+	sys-devel/automake:1.10
 	doc? ( app-doc/doxygen media-gfx/imagemagick )
 	dev-util/pkgconfig"
 
@@ -60,8 +62,9 @@ pkg_setup() {
 }
 
 src_compile() {
-	local repositories=`echo default $(usev cran ) | tr -s \  ,`
-	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) | tr -s \  ,`
+	local repositories=`echo default $(usev cran ) $(usev gems ) | tr -s \  ,`
+	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) \
+		$(usev gtk gtkpaludis ) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
