@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="paludis-1"
+
 DESCRIPTION="C++ template library for avoiding exposing privates via iterators"
-HOMEPAGE="http://libwrapiter.berlios.de/"
-SRC_URI="http://download.berlios.de/libwrapiter/${P}.tar.bz2"
+HOMEPAGE="http://libwrapiter.pioto.org/"
+SRC_URI="http://libwrapiter.pioto.org/download/${P}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
@@ -12,8 +14,8 @@ KEYWORDS="~amd64 ~sparc ~x86"
 IUSE="doc"
 
 DEPEND="
-	>=sys-devel/autoconf-2.59
-	=sys-devel/automake-1.9*
+	sys-devel/autoconf:2.5
+	sys-devel/automake:1.10
 	doc? ( app-doc/doxygen )"
 
 RDEPEND=""
@@ -24,18 +26,11 @@ src_compile() {
 		|| die "econf failed"
 
 	emake || die "emake failed"
-	if use doc ; then
-		make doxygen || die "make doxygen failed"
-	fi
 }
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README ChangeLog NEWS
-
-	if use doc ; then
-		dohtml -V -r doc/html/
-	fi
 }
 
 src_test() {

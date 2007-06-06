@@ -2,10 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="paludis-1"
+
 inherit subversion
 
 DESCRIPTION="C++ template library for avoiding exposing privates via iterators"
-HOMEPAGE="http://libwrapiter.berlios.de/"
+HOMEPAGE="http://libwrapiter.pioto.org/"
 SRC_URI=""
 
 LICENSE="BSD"
@@ -14,13 +16,13 @@ KEYWORDS="~amd64 ~sparc ~x86"
 IUSE="doc"
 
 DEPEND="
-	>=sys-devel/autoconf-2.59
-	=sys-devel/automake-1.9*
+	sys-devel/autoconf:2.5
+	sys-devel/automake:1.10
 	doc? ( app-doc/doxygen )"
 
 RDEPEND=""
 
-ESVN_REPO_URI="svn://svn.berlios.de/libwrapiter/trunk"
+ESVN_REPO_URI="svn://svn.pioto.org/libwrapiter/trunk"
 ESVN_BOOTSTRAP="./autogen.bash"
 
 src_compile() {
@@ -29,18 +31,11 @@ src_compile() {
 		|| die "econf failed"
 
 	emake || die "emake failed"
-	if use doc ; then
-		make doxygen || die "make doxygen failed"
-	fi
 }
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README ChangeLog NEWS
-
-	if use doc ; then
-		dohtml -V -r doc/html/
-	fi
 }
 
 src_test() {
