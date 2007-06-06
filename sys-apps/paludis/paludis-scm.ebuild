@@ -64,7 +64,7 @@ pkg_setup() {
 src_compile() {
 	local repositories=`echo default $(usev cran ) $(usev gems ) | tr -s \  ,`
 	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) \
-		$(usev gtk gtkpaludis ) | tr -s \  ,`
+		$(useq gtk && echo gtkpaludis ) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
