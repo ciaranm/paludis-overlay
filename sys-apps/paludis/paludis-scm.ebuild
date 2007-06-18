@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="contrarius cran doc gems gtk glsa inquisitio portage pink qa ruby vim-syntax zsh-completion"
+IUSE="contrarius cran doc gems gtk glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -20,6 +20,7 @@ COMMON_DEPEND="
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
+	python? ( dev-lang/python:2.4 >=dev-libs/boost-1.33.1-r1 )
 	ruby? ( >=dev-lang/ruby-1.8 )
 	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
 	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )
@@ -71,6 +72,7 @@ src_compile() {
 		$(use_enable pink) \
 		$(use_enable qa) \
 		$(use_enable ruby) \
+		$(use_enable python) \
 		$(use_enable glsa) \
 		$(use_enable vim-syntax vim ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
