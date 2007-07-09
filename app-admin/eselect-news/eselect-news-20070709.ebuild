@@ -10,7 +10,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 IUSE=""
 
-RDEPEND="app-admin/eselect"
+RDEPEND="app-admin/eselect sys-apps/paludis"
 
 src_install() {
 	insinto /usr/share/eselect/modules
