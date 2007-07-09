@@ -14,6 +14,6 @@ RDEPEND="app-admin/eselect sys-apps/paludis"
 
 src_install() {
 	insinto /usr/share/eselect/modules
-	newins "${WORKDIR}/news.eselect-${PV}" news.eselect || die
+	newins "${DISTDIR}/news.eselect-${PV}" news.eselect || die
 }
 
