@@ -2,15 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit subversion bash-completion eutils flag-o-matic
+inherit bash-completion eutils flag-o-matic
 
 EAPI="paludis-1"
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI=""
+SRC_URI="mirror://berlios/${PN}/${P}.tar.bz2"
 
-IUSE="contrarius cran doc gems gtk glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion"
+IUSE="contrarius cran doc glsa inquisitio portage pink qa ruby vim-syntax
+	zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -22,21 +23,15 @@ COMMON_DEPEND="
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
-	python? ( dev-lang/python:2.4 >=dev-libs/boost-1.33.1-r1 )
 	ruby? ( >=dev-lang/ruby-1.8 )
-	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
-	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )
 	virtual/c++-tr1-functional
 	virtual/c++-tr1-memory
 	virtual/c++-tr1-type-traits"
 
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
-	>=dev-cpp/libwrapiter-1.2.0
-	sys-devel/autoconf:2.5
-	sys-devel/automake:1.10
-	doc? ( app-doc/doxygen media-gfx/imagemagick )
-	dev-util/pkgconfig"
+	>=dev-cpp/libwrapiter-1.0.0
+	doc? ( app-doc/doxygen media-gfx/imagemagick )"
 
 RDEPEND="${COMMON_DEPEND}
 	net-misc/wget
@@ -50,9 +45,6 @@ PDEPEND="
 
 PROVIDE="virtual/portage"
 
-ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
-ESVN_BOOTSTRAP="./autogen.bash"
-
 create-paludis-user() {
 	enewgroup "paludisbuild"
 	enewuser "paludisbuild" -1 -1 -1 "paludisbuild"
@@ -64,17 +56,15 @@ pkg_setup() {
 }
 
 src_compile() {
-	local repositories=`echo default $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) \
-		$(useq gtk && echo gtkpaludis ) | tr -s \  ,`
+	local repositories=`echo default $(usev cran ) | tr -s \  ,`
+	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
-		$(use_enable pink) \
-		$(use_enable qa) \
-		$(use_enable ruby) \
-		$(use_enable python) \
-		$(use_enable glsa) \
+		$(use_enable pink ) \
+		$(use_enable qa ) \
+		$(use_enable ruby ) \
+		$(use_enable glsa ) \
 		$(use_enable vim-syntax vim ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--enable-sandbox \
