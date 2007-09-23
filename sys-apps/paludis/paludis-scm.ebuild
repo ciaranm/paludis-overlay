@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="contrarius cran doc gems gtk glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion"
+IUSE="accerso contrarius cran doc gems gtk glsa inquisitio instruo portage pink python qa ruby vim-syntax zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -67,7 +67,7 @@ pkg_setup() {
 src_compile() {
 	local repositories=`echo default $(usev cran ) $(usev gems ) | tr -s \  ,`
 	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) \
-		$(useq gtk && echo gtkpaludis ) | tr -s \  ,`
+		$(useq gtk && echo gtkpaludis ) $(usev accerso) $(usev instruo) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
