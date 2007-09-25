@@ -65,6 +65,7 @@ pkg_setup() {
 }
 
 src_compile() {
+	subversion_wc_info
 	local repositories=`echo default $(usev cran ) $(usev gems ) | tr -s \  ,`
 	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) \
 		$(useq gtk && echo gtkpaludis ) $(usev accerso) $(usev instruo) | tr -s \  ,`
@@ -82,6 +83,7 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
+		--with-svn-revision=${ESVN_WC_REVISION} \
 		|| die "econf failed"
 
 	emake || die "emake failed"
