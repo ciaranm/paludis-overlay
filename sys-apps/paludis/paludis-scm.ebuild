@@ -98,15 +98,22 @@ src_install() {
 
 	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
+	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
 	use qa && \
 		BASH_COMPLETION_NAME="qualudis" \
 		dobashcompletion bash-completion/qualudis
+	use accerso && \
+		BASH_COMPLETION_NAME="accerso" \
+		dobashcompletion bash-completion/accerso
 	use contrarius && \
 		BASH_COMPLETION_NAME="contrarius" \
 		dobashcompletion bash-completion/contrarius
 	use inquisitio && \
 		BASH_COMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
+	use instruo && \
+		BASH_COMPLETION_NAME="instruo" \
+		dobashcompletion bash-completion/instruo
 
 	if use doc ; then
 		dohtml -r -V doc/www/*
@@ -138,9 +145,12 @@ pkg_postinst() {
 		einfo "The following bash completion scripts have been installed:"
 		einfo "  paludis"
 		einfo "  adjutrix"
+		einfo "  reconcilio"
 		use qa && einfo "  qualudis"
 		use contrarius && einfo "  contrarius"
 		use inquisitio && einfo "  inquisitio"
+		use accerso && einfo "  accerso"
+		use instruo && einfo "  instruo"
 		einfo
 		einfo "To enable these scripts, run:"
 		einfo "  eselect bashcomp enable <scriptname>"
