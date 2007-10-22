@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="accerso contrarius cran doc gems gtk glsa inquisitio instruo portage pink python qa ruby vim-syntax zsh-completion"
+IUSE="accerso contrarius cran doc gems gtk glsa importare inquisitio instruo portage pink python qa ruby vim-syntax zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -66,9 +66,11 @@ pkg_setup() {
 
 src_compile() {
 	subversion_wc_info
-	local repositories=`echo default $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default $(usev contrarius ) $(usev inquisitio ) \
-		$(useq gtk && echo gtkpaludis ) $(usev accerso) $(usev instruo) | tr -s \  ,`
+	local repositories=`echo default $(usev cran ) $(usev gems ) \
+		$(useq importare && echo unpackaged) | tr -s \  ,`
+	local clients=`echo default $(usev contrarius ) $(usev importare) \
+		$(usev inquisitio ) $(useq gtk && echo gtkpaludis ) \
+		$(usev accerso) $(usev instruo) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -108,6 +110,9 @@ src_install() {
 	use contrarius && \
 		BASH_COMPLETION_NAME="contrarius" \
 		dobashcompletion bash-completion/contrarius
+	use importare && \
+		BASH_COMPLETION_NAME="importare" \
+		dobashcompletion bash-completion/importare
 	use inquisitio && \
 		BASH_COMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
@@ -148,6 +153,7 @@ pkg_postinst() {
 		einfo "  reconcilio"
 		use qa && einfo "  qualudis"
 		use contrarius && einfo "  contrarius"
+		use importare && einfo "  importare"
 		use inquisitio && einfo "  inquisitio"
 		use accerso && einfo "  accerso"
 		use instruo && einfo "  instruo"
