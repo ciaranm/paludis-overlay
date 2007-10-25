@@ -31,7 +31,7 @@ COMMON_DEPEND="
 
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
-	>=dev-cpp/libwrapiter-1.0.0
+	>=dev-cpp/libwrapiter-1.2.0
 	doc? ( app-doc/doxygen media-gfx/imagemagick )"
 
 RDEPEND="${COMMON_DEPEND}
