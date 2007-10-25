@@ -36,7 +36,8 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-cpp/libwrapiter-1.2.0
 	sys-devel/autoconf:2.5
 	sys-devel/automake:1.10
-	doc? ( app-doc/doxygen media-gfx/imagemagick )
+	doc? ( app-doc/doxygen media-gfx/imagemagick
+		python? ( dev-python/epydoc ) )
 	dev-util/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
