@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI="http://paludis.pioto.org/download/${P}.tar.bz2"
 
-IUSE="doc glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion"
+IUSE="doc glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion visibility"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
