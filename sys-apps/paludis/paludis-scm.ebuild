@@ -67,8 +67,9 @@ pkg_setup() {
 src_compile() {
 	subversion_wc_info
 	local repositories=`echo default unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default accerso adjutrix contrarius importare $(usev inquisitio )
-		instruo paludis reconcilio $(useq gtk && echo gtkpaludis ) | tr -s \  ,`
+	local clients=`echo default accerso adjutrix contrarius importare \
+		$(usev inquisitio ) instruo paludis reconcilio \
+		$(useq gtk && echo gtkpaludis ) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
