@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="accerso contrarius cran doc gems gtk glsa importare inquisitio instruo portage pink python qa ruby vim-syntax zsh-completion"
+IUSE="cran doc gems gtk glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion visibility"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -22,9 +22,9 @@ COMMON_DEPEND="
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
+	ruby? ( >=dev-lang/ruby-1.8 )
 	python? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
 		>=dev-libs/boost-1.33.1-r1 )
-	ruby? ( >=dev-lang/ruby-1.8 )
 	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
 	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )
 	virtual/c++-tr1-functional
@@ -56,7 +56,7 @@ ESVN_BOOTSTRAP="./autogen.bash"
 
 create-paludis-user() {
 	enewgroup "paludisbuild"
-	enewuser "paludisbuild" -1 -1 -1 "paludisbuild"
+	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild"
 }
 
 pkg_setup() {
@@ -66,20 +66,19 @@ pkg_setup() {
 
 src_compile() {
 	subversion_wc_info
-	local repositories=`echo default $(usev cran ) $(usev gems ) \
-		$(useq importare && echo unpackaged) | tr -s \  ,`
-	local clients=`echo default $(usev contrarius ) $(usev importare) \
-		$(usev inquisitio ) $(useq gtk && echo gtkpaludis ) \
-		$(usev accerso) $(usev instruo) | tr -s \  ,`
+	local repositories=`echo default unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
+	local clients=`echo default accerso adjutrix contrarius importare $(usev inquisitio )
+		instruo paludis reconcilio $(useq gtk && echo gtkpaludis ) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
-		$(use_enable pink) \
-		$(use_enable qa) \
-		$(use_enable ruby) \
-		$(use_enable python) \
-		$(use_enable glsa) \
+		$(use_enable pink ) \
+		$(use_enable qa ) \
+		$(use_enable ruby ) \
+		$(use_enable python ) \
+		$(use_enable glsa ) \
 		$(use_enable vim-syntax vim ) \
+		$(use_enable visibility ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--enable-sandbox \
 		--with-repositories=${repositories} \
@@ -89,9 +88,6 @@ src_compile() {
 		|| die "econf failed"
 
 	emake || die "emake failed"
-	if use doc ; then
-		make doxygen || die "make doxygen failed"
-	fi
 }
 
 src_install() {
@@ -100,29 +96,17 @@ src_install() {
 
 	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
+	BASH_COMPLETION_NAME="accerso" dobashcompletion bash-completion/paludis
+	BASH_COMPLETION_NAME="contrarius" dobashcompletion bash-completion/paludis
+	BASH_COMPLETION_NAME="importare" dobashcompletion bash-completion/paludis
+	BASH_COMPLETION_NAME="instruo" dobashcompletion bash-completion/paludis
+	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/paludis
 	use qa && \
 		BASH_COMPLETION_NAME="qualudis" \
 		dobashcompletion bash-completion/qualudis
-	use accerso && \
-		BASH_COMPLETION_NAME="accerso" \
-		dobashcompletion bash-completion/accerso
-	use contrarius && \
-		BASH_COMPLETION_NAME="contrarius" \
-		dobashcompletion bash-completion/contrarius
-	use importare && \
-		BASH_COMPLETION_NAME="importare" \
-		dobashcompletion bash-completion/importare
 	use inquisitio && \
 		BASH_COMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
-	use instruo && \
-		BASH_COMPLETION_NAME="instruo" \
-		dobashcompletion bash-completion/instruo
-
-	if use doc ; then
-		dohtml -r -V doc/www/*
-	fi
 
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
@@ -142,29 +126,5 @@ src_test() {
 
 pkg_preinst() {
 	create-paludis-user
-}
-
-pkg_postinst() {
-	if use bash-completion ; then
-		echo
-		einfo "The following bash completion scripts have been installed:"
-		einfo "  paludis"
-		einfo "  adjutrix"
-		einfo "  reconcilio"
-		use qa && einfo "  qualudis"
-		use contrarius && einfo "  contrarius"
-		use importare && einfo "  importare"
-		use inquisitio && einfo "  inquisitio"
-		use accerso && einfo "  accerso"
-		use instruo && einfo "  instruo"
-		einfo
-		einfo "To enable these scripts, run:"
-		einfo "  eselect bashcomp enable <scriptname>"
-	fi
-
-	echo
-	einfo "Before using Paludis and before reporting issues, you should read:"
-	einfo "    http://paludis.pioto.org/faq.html"
-	echo
 }
 
