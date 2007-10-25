@@ -98,10 +98,6 @@ src_install() {
 		BASH_COMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
 
-	if use doc ; then
-		dohtml -r -V doc/www/*
-	fi
-
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_paludis
