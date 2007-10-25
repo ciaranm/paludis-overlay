@@ -56,6 +56,12 @@ pkg_setup() {
 	create-paludis-user
 }
 
+src_unpack() {
+	unpack "${A}"
+	cd "${S}"
+	cp "${FILESDIR}"/make_nn.bash "${S}"/misc/
+}
+
 src_compile() {
 	local repositories=`echo default unpackaged $(usev cran ) | tr -s \  ,`
 	local clients=`echo default accerso adjutrix contrarius importare \
