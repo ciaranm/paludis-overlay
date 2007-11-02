@@ -32,8 +32,6 @@ COMMON_DEPEND="
 	virtual/c++-tr1-type-traits"
 
 DEPEND="${COMMON_DEPEND}
-	dev-cpp/libebt
-	>=dev-cpp/libwrapiter-1.2.0
 	sys-devel/autoconf:2.5
 	sys-devel/automake:1.10
 	doc? ( app-doc/doxygen media-gfx/imagemagick
