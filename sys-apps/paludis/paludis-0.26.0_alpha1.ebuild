@@ -32,8 +32,11 @@ COMMON_DEPEND="
 DEPEND="${COMMON_DEPEND}
 	dev-cpp/libebt
 	>=dev-cpp/libwrapiter-1.2.0
-	doc? ( app-doc/doxygen media-gfx/imagemagick
-		python? ( dev-python/epydoc ) )"
+	doc? (
+		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
+		media-gfx/imagemagick
+	)
+	python? ( dev-python/epydoc )"
 
 RDEPEND="${COMMON_DEPEND}
 	net-misc/wget

@@ -34,8 +34,11 @@ COMMON_DEPEND="
 DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf:2.5
 	sys-devel/automake:1.10
-	doc? ( app-doc/doxygen media-gfx/imagemagick
-		python? ( dev-python/epydoc ) )
+	doc? (
+		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
+		media-gfx/imagemagick
+	)
+	python? ( dev-python/epydoc )
 	dev-util/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
