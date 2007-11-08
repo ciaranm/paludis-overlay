@@ -63,6 +63,7 @@ create-paludis-user() {
 
 pkg_setup() {
 	replace-flags -Os -O2
+	replace-flags -O3 -O2
 	create-paludis-user
 }
 
