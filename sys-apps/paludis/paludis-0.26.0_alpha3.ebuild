@@ -89,11 +89,11 @@ src_install() {
 
 	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="accerso" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="contrarius" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="importare" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="instruo" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/paludis
+	BASH_COMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
+	BASH_COMPLETION_NAME="contrarius" dobashcompletion bash-completion/contrarius
+	BASH_COMPLETION_NAME="importare" dobashcompletion bash-completion/importare
+	BASH_COMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
+	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
 	use qa && \
 		BASH_COMPLETION_NAME="qualudis" \
 		dobashcompletion bash-completion/qualudis
