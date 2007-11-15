@@ -65,6 +65,18 @@ pkg_setup() {
 	replace-flags -Os -O2
 	replace-flags -O3 -O2
 	create-paludis-user
+
+	FIXED_MAKEOPTS=""
+	m=$(free -m | sed -n -e '/^Mem:/s,^\([^[:digit:]]\+[[:digit:]]\+\)\{2\}[^[:digit:]]\+\([[:digit:]]\+\).*,\2,p' )
+	j=$(echo "$MAKEOPTS" | sed -n -e 's,.*-j\([[:digit:]]\+\).*,\1,p' )
+	if [[ -n "${m}" ]] && [[ -n "${j}" ]] ; then
+		if (( m < j * 512 )) ; then
+			FIXED_MAKEOPTS="-j$(( m / 512 ))"
+			[[ ${FIXED_MAKEOPTS} == "-j0" ]] && FIXED_MAKEOPTS="-j1"
+			ewarn "Your MAKEOPTS is too high. To stop the kernel from throwing a hissy fit"
+			ewarn "when g++ eats all your RAM, we'll use ${FIXED_MAKEOPTS} instead."
+		fi
+	fi
 }
 
 src_compile() {
@@ -91,7 +103,7 @@ src_compile() {
 		--with-svn-revision=${ESVN_WC_REVISION} \
 		|| die "econf failed"
 
-	emake || die "emake failed"
+	emake ${FIXED_MAKEOPTS} || die "emake failed"
 }
 
 src_install() {
