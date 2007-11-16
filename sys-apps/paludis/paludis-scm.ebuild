@@ -67,8 +67,8 @@ pkg_setup() {
 	create-paludis-user
 
 	FIXED_MAKEOPTS=""
-	m=$(free -m | sed -n -e '/^Mem:/s,^\([^[:digit:]]\+[[:digit:]]\+\)\{2\}[^[:digit:]]\+\([[:digit:]]\+\).*,\2,p' )
 	m=$(free -m | sed -n -e '/cache:/s,^[^[:digit:]]\+[[:digit:]]\+[^[:digit:]]\+\([[:digit:]]\+\).*,\1,p')
+	j=$(echo "$MAKEOPTS" | sed -n -e 's,.*-j\([[:digit:]]\+\).*,\1,p' )
 	if [[ -n "${m}" ]] && [[ -n "${j}" ]] && (( ${j} > 1 )); then
 		if (( m < j * 512 )) ; then
 			FIXED_MAKEOPTS="-j$(( m / 512 ))"
