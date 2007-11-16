@@ -38,7 +38,8 @@ DEPEND="${COMMON_DEPEND}
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
 	)
-	python? ( dev-python/epydoc )
+	python? ( dev-python/epydoc dev-python/pygments )
+	ruby? ( dev-ruby/syntax )
 	dev-util/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
