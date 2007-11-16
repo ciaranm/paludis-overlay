@@ -73,7 +73,7 @@ pkg_setup() {
 		if (( m < j * 512 )) ; then
 			FIXED_MAKEOPTS="-j$(( m / 512 ))"
 			[[ ${FIXED_MAKEOPTS} == "-j0" ]] && FIXED_MAKEOPTS="-j1"
-			ewarn "Your MAKEOPTS is too high. To stop the kernel from throwing a hissy fit"
+			ewarn "Your MAKEOPTS -j is too high. To stop the kernel from throwing a hissy fit"
 			ewarn "when g++ eats all your RAM, we'll use ${FIXED_MAKEOPTS} instead."
 		fi
 	fi
