@@ -68,8 +68,8 @@ pkg_setup() {
 
 	FIXED_MAKEOPTS=""
 	m=$(free -m | sed -n -e '/^Mem:/s,^\([^[:digit:]]\+[[:digit:]]\+\)\{2\}[^[:digit:]]\+\([[:digit:]]\+\).*,\2,p' )
-	j=$(echo "$MAKEOPTS" | sed -n -e 's,.*-j\([[:digit:]]\+\).*,\1,p' )
-	if [[ -n "${m}" ]] && [[ -n "${j}" ]] ; then
+	m=$(free -m | sed -n -e '/cache:/s,^[^[:digit:]]\+[[:digit:]]\+[^[:digit:]]\+\([[:digit:]]\+\).*,\1,p')
+	if [[ -n "${m}" ]] && [[ -n "${j}" ]] && (( ${j} > 1 )); then
 		if (( m < j * 512 )) ; then
 			FIXED_MAKEOPTS="-j$(( m / 512 ))"
 			[[ ${FIXED_MAKEOPTS} == "-j0" ]] && FIXED_MAKEOPTS="-j1"
