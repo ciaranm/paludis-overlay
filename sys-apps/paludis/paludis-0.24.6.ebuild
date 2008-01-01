@@ -18,7 +18,7 @@ KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 
 COMMON_DEPEND="
 	>=app-admin/eselect-1.0.2
-	app-admin/eselect-news
+	<app-admin/eselect-news-20071201
 	>=app-shells/bash-3
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )

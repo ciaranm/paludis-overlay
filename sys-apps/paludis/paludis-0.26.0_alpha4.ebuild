@@ -17,7 +17,7 @@ KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 
 COMMON_DEPEND="
 	>=app-admin/eselect-1.0.2
-	app-admin/eselect-news
+	>=app-admin/eselect-news-20071201
 	>=app-shells/bash-3
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
@@ -70,6 +70,13 @@ pkg_setup() {
 			ewarn "when g++ eats all your RAM, we'll use ${FIXED_MAKEOPTS} instead."
 		fi
 	fi
+}
+
+src_unpack() {
+	unpack ${A}
+
+	cd "${S}"
+	epatch "${FILESDIR}/${P}-news_test.patch"
 }
 
 src_compile() {
@@ -134,3 +141,9 @@ pkg_preinst() {
 	create-paludis-user
 }
 
+pkg_postinst() {
+	# Remove the symlink created by app-admin/eselect-news
+	if [[ -L "${ROOT}/var/lib/paludis/news" ]] ; then
+		rm "${ROOT}/var/lib/paludis/news"
+	fi
+}

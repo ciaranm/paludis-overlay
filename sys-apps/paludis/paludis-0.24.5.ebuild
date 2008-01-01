@@ -33,7 +33,7 @@ DEPEND="${COMMON_DEPEND}
 
 RDEPEND="${COMMON_DEPEND}
 	>=app-admin/eselect-1.0.2
-	app-admin/eselect-news
+	<app-admin/eselect-news-20071201
 	net-misc/wget
 	net-misc/rsync
 	sys-apps/sandbox"
