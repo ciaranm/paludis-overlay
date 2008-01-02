@@ -27,6 +27,7 @@ COMMON_DEPEND="
 	virtual/c++-tr1-type-traits"
 
 DEPEND="${COMMON_DEPEND}
+	!>=app-shells/bash-3.2_p25
 	dev-cpp/libebt
 	>=dev-cpp/libwrapiter-1.0.0
 	doc? ( app-doc/doxygen media-gfx/imagemagick )"

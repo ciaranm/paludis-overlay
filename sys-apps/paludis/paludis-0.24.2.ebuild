@@ -32,6 +32,7 @@ DEPEND="${COMMON_DEPEND}
 	doc? ( app-doc/doxygen media-gfx/imagemagick )"
 
 RDEPEND="${COMMON_DEPEND}
+	!>=app-shells/bash-3.2_p25
 	>=app-admin/eselect-1.0.2
 	net-misc/wget
 	net-misc/rsync

@@ -38,6 +38,7 @@ DEPEND="${COMMON_DEPEND}
 	ruby? ( dev-ruby/syntax )"
 
 RDEPEND="${COMMON_DEPEND}
+	!>=app-shells/bash-3.2_p25
 	net-misc/wget
 	net-misc/rsync
 	sys-apps/sandbox"
