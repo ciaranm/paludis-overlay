@@ -129,6 +129,9 @@ src_install() {
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_paludis
 		doins zsh-completion/_adjutrix
+		doins zsh-completion/_importare
+		doins zsh-completion/_reconcilio
+		use inquisitio && doins zsh-completion/_inquisitio
 		doins zsh-completion/_paludis_packages
 	fi
 }
