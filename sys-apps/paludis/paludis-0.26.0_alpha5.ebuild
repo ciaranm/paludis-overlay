@@ -50,15 +50,12 @@ PDEPEND="
 
 PROVIDE="virtual/portage"
 
-create-paludis-user() {
-	enewgroup "paludisbuild"
-	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild"
-}
-
 pkg_setup() {
 	replace-flags -Os -O2
 	replace-flags -O3 -O2
-	create-paludis-user
+
+	enewgroup "paludisbuild"
+	enewuser "paludisbuild" "-1" "-1" "/var/tmp/paludis" "paludisbuild"
 
 	FIXED_MAKEOPTS=""
 	m=$(free -m | sed -n -e '/cache:/s,^[^[:digit:]]\+[[:digit:]]\+[^[:digit:]]\+\([[:digit:]]\+\).*,\1,p')
@@ -132,10 +129,6 @@ src_test() {
 	export BASH_ENV=/dev/null
 
 	emake check || die "Make check failed"
-}
-
-pkg_preinst() {
-	create-paludis-user
 }
 
 pkg_postinst() {
