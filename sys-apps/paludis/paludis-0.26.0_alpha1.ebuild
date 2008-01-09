@@ -23,7 +23,7 @@ COMMON_DEPEND="
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
 	ruby? ( >=dev-lang/ruby-1.8 )
-	python? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
+	python? ( || ( dev-lang/python:2.5 dev-lang/python:2.4 )
 		>=dev-libs/boost-1.33.1-r1 )
 	virtual/c++-tr1-functional
 	virtual/c++-tr1-memory
