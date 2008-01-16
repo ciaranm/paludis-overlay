@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit subversion bash-completion eutils flag-o-matic
+inherit bash-completion eutils flag-o-matic
 
 EAPI="paludis-1"
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI=""
+SRC_URI="http://paludis.pioto.org/download/${P}.tar.bz2"
 
-IUSE="cran doc gems gtk glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion visibility"
+IUSE="doc glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion visibility"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -23,17 +23,13 @@ COMMON_DEPEND="
 	inquisitio? ( dev-libs/pcre++ )
 	glsa? ( >=dev-libs/libxml2-2.6 )
 	ruby? ( >=dev-lang/ruby-1.8 )
-	python? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
+	python? ( || ( dev-lang/python:2.5 dev-lang/python:2.4 )
 		>=dev-libs/boost-1.33.1-r1 )
-	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
-	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )
 	virtual/c++-tr1-functional
 	virtual/c++-tr1-memory
 	virtual/c++-tr1-type-traits"
 
 DEPEND="${COMMON_DEPEND}
-	sys-devel/autoconf:2.5
-	sys-devel/automake:1.10
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
@@ -54,18 +50,12 @@ PDEPEND="
 
 PROVIDE="virtual/portage"
 
-ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
-ESVN_BOOTSTRAP="./autogen.bash"
-
-create-paludis-user() {
-	enewgroup "paludisbuild"
-	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild"
-}
-
 pkg_setup() {
 	replace-flags -Os -O2
 	replace-flags -O3 -O2
-	create-paludis-user
+
+	enewgroup "paludisbuild"
+	enewuser "paludisbuild" "-1" "-1" "/var/tmp/paludis" "paludisbuild"
 
 	FIXED_MAKEOPTS=""
 	m=$(free -m | sed -n -e '/cache:/s,^[^[:digit:]]\+[[:digit:]]\+[^[:digit:]]\+\([[:digit:]]\+\).*,\1,p')
@@ -81,11 +71,9 @@ pkg_setup() {
 }
 
 src_compile() {
-	subversion_wc_info
-	local repositories=`echo default unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
+	local repositories=`echo default unpackaged $(usev cran ) | tr -s \  ,`
 	local clients=`echo default accerso adjutrix contrarius importare \
-		$(usev inquisitio ) instruo paludis reconcilio \
-		$(useq gtk && echo gtkpaludis ) | tr -s \  ,`
+		$(usev inquisitio ) instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -102,7 +90,6 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
-		--with-svn-revision=${ESVN_WC_REVISION} \
 		|| die "econf failed"
 
 	emake ${FIXED_MAKEOPTS} || die "emake failed"
@@ -143,10 +130,6 @@ src_test() {
 	export BASH_ENV=/dev/null
 
 	emake check || die "Make check failed"
-}
-
-pkg_preinst() {
-	create-paludis-user
 }
 
 pkg_postinst() {
