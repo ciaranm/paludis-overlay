@@ -39,7 +39,7 @@ DEPEND="${COMMON_DEPEND}
 		media-gfx/imagemagick
 	)
 	python? ( dev-python/epydoc dev-python/pygments )
-	ruby? ( dev-ruby/syntax doc? ( dev-ruby/allison ) )
+	ruby? ( doc? ( dev-ruby/syntax dev-ruby/allison ) )
 	dev-util/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
