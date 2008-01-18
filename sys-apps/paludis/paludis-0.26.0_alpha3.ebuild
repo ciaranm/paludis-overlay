@@ -34,7 +34,7 @@ DEPEND="${COMMON_DEPEND}
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
 	)
-	python? ( dev-python/epydoc )"
+	python? ( <dev-python/epydoc-3.0_beta1 )"
 
 RDEPEND="${COMMON_DEPEND}
 	!>=app-shells/bash-3.2_p25
