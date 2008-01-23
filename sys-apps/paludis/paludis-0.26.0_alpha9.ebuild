@@ -34,7 +34,7 @@ DEPEND="${COMMON_DEPEND}
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
 	)
-	python? ( <dev-python/epydoc-3.0_beta1 dev-python/pygments )
+	python? ( dev-python/epydoc dev-python/pygments )
 	ruby? ( doc? ( dev-ruby/syntax dev-ruby/allison ) )
 	dev-util/pkgconfig"
 
