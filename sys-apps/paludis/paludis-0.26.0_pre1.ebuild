@@ -71,7 +71,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	local repositories=`echo default unpackaged $(usev cran ) | tr -s \  ,`
+	local repositories=`echo default unpackaged | tr -s \  ,`
 	local clients=`echo default accerso adjutrix contrarius importare \
 		$(usev inquisitio ) instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
