@@ -43,14 +43,19 @@ DEPEND="${COMMON_DEPEND}
 	dev-util/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
-	net-misc/wget
-	net-misc/rsync
 	sys-apps/sandbox"
 
-# Keep this as a PDEPEND. It avoids issues when Paludis is used as the
+# Keep syntax as a PDEPEND. It avoids issues when Paludis is used as the
 # default virtual/portage provider.
 PDEPEND="
-	vim-syntax? ( >=app-editors/vim-core-7 )"
+	vim-syntax? ( >=app-editors/vim-core-7 )
+	suggested:
+		dev-util/git
+		dev-util/subversion
+		dev-util/cvs
+		dev-util/darcs
+		net-misc/rsync
+		net-misc/wget"
 
 PROVIDE="virtual/portage"
 
