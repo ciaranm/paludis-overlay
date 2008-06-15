@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit subversion bash-completion eutils flag-o-matic
-
 EAPI="paludis-1"
+
+inherit git bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
@@ -59,8 +59,8 @@ PDEPEND="
 
 PROVIDE="virtual/portage"
 
-ESVN_REPO_URI="svn://svn.pioto.org/paludis/trunk"
-ESVN_BOOTSTRAP="./autogen.bash"
+EGIT_REPO_URI="git://git.pioto.org/paludis.git"
+EGIT_BOOTSTRAP="./autogen.bash"
 
 create-paludis-user() {
 	enewgroup "paludisbuild"
@@ -86,7 +86,6 @@ pkg_setup() {
 }
 
 src_compile() {
-	subversion_wc_info
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
 	local clients=`echo default accerso adjutrix contrarius importare \
 		$(usev inquisitio ) instruo paludis reconcilio \
@@ -107,7 +106,6 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
-		--with-svn-revision=${ESVN_WC_REVISION} \
 		|| die "econf failed"
 
 	emake ${FIXED_MAKEOPTS} || die "emake failed"
