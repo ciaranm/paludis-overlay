@@ -37,9 +37,9 @@ DEPEND="${COMMON_DEPEND}
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
+		python? ( dev-python/epydoc dev-python/pygments )
+		ruby? ( dev-ruby/syntax dev-ruby/allison )
 	)
-	python? ( dev-python/epydoc dev-python/pygments )
-	ruby? ( doc? ( dev-ruby/syntax dev-ruby/allison ) )
 	dev-util/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
@@ -98,6 +98,7 @@ src_compile() {
 		$(use_enable ruby ) \
 		$(useq ruby && useq doc && echo --enable-ruby-doc ) \
 		$(use_enable python ) \
+		$(useq python && useq doc && echo --enable-python-doc ) \
 		$(use_enable glsa ) \
 		$(use_enable vim-syntax vim ) \
 		$(use_enable visibility ) \
