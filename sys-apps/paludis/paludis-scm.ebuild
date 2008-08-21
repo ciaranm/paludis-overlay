@@ -26,10 +26,7 @@ COMMON_DEPEND="
 	python? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
 		>=dev-libs/boost-1.33.1-r1 )
 	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
-	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )
-	virtual/c++-tr1-functional
-	virtual/c++-tr1-memory
-	virtual/c++-tr1-type-traits"
+	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )"
 
 DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf:2.5
