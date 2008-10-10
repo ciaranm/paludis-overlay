@@ -129,7 +129,7 @@ src_test() {
 
 	if ! emake check ; then
 		eerror "Tests failed. Looking for files for you to add to your bug report..."
-		find . -type f -name '*.epicfail' -or -name '*.log' | while read a ; do
+		find "${S}" -type f -name '*.epicfail' -or -name '*.log' | while read a ; do
 			eerror "    $a"
 		done
 		die "Make check failed"
