@@ -84,7 +84,7 @@ pkg_setup() {
 
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default accerso adjutrix contrarius importare \
+	local clients=`echo default accerso adjutrix importare \
 		$(usev inquisitio ) instruo paludis reconcilio \
 		$(useq gtk && echo gtkpaludis ) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
@@ -117,7 +117,6 @@ src_install() {
 	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
 	BASH_COMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	BASH_COMPLETION_NAME="contrarius" dobashcompletion bash-completion/contrarius
 	BASH_COMPLETION_NAME="importare" dobashcompletion bash-completion/importare
 	BASH_COMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
 	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
