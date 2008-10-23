@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="cran doc gems gtk glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion visibility"
+IUSE="cran doc gems glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion visibility"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -25,8 +25,7 @@ COMMON_DEPEND="
 	ruby? ( >=dev-lang/ruby-1.8 )
 	python? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
 		>=dev-libs/boost-1.33.1-r1 )
-	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
-	gtk? ( >=dev-cpp/gtkmm-2.8 >=x11-libs/vte-0.14.2 )"
+	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )"
 
 DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf:2.5
@@ -85,8 +84,7 @@ pkg_setup() {
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
 	local clients=`echo default accerso adjutrix importare \
-		$(usev inquisitio ) instruo paludis reconcilio \
-		$(useq gtk && echo gtkpaludis ) | tr -s \  ,`
+		$(usev inquisitio ) instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
