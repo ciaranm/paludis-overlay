@@ -13,5 +13,5 @@ ruby - Build Ruby interface bindings
 selinux - Enable support for Security Enhanced Linux (internal use only)
 vim-syntax - Include Vim syntax support
 visibility - Enable visibility support (g++ 4.1)
-xml - Enable XML support, for metadata.xml and GLSA (Gentoo security advisory) handling
+xml - Enable XML support, for metadata.xml and GLSA (Gentoo Linux Security Advisory) handling
 zsh-completion - Enable ZSH completion support
