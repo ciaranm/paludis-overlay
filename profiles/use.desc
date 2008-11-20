@@ -4,7 +4,6 @@ contrarius - Enable contrarius, the cross toolchain generation client
 cran - Enable support for CRAN repositories
 doc - Add extra documentation
 gems - Enable support for Ruby Gems repositories (incomplete)
-glsa - Enable GLSA (Gentoo security advisory) handling support
 inquisitio - Enable inquisitio, the search client
 pink - Use an obnoxious girly colour scheme
 portage - Enable experimental support for Portage configuration formats
@@ -14,4 +13,5 @@ ruby - Build Ruby interface bindings
 selinux - Enable support for Security Enhanced Linux (internal use only)
 vim-syntax - Include Vim syntax support
 visibility - Enable visibility support (g++ 4.1)
+xml - Enable XML support, for metadata.xml and GLSA (Gentoo security advisory) handling
 zsh-completion - Enable ZSH completion support

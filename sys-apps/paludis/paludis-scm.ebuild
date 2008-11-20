@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="cran doc gems glsa inquisitio portage pink python qa ruby vim-syntax zsh-completion visibility"
+IUSE="cran doc gems inquisitio portage pink python qa ruby vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -21,11 +21,11 @@ COMMON_DEPEND="
 	>=app-shells/bash-3
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
-	glsa? ( >=dev-libs/libxml2-2.6 )
 	ruby? ( >=dev-lang/ruby-1.8 )
 	python? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
 		>=dev-libs/boost-1.33.1-r1 )
-	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )"
+	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
+	xml? ( >=dev-libs/libxml2-2.6 )"
 
 DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf:2.5
@@ -94,9 +94,9 @@ src_compile() {
 		$(useq ruby && useq doc && echo --enable-ruby-doc ) \
 		$(use_enable python ) \
 		$(useq python && useq doc && echo --enable-python-doc ) \
-		$(use_enable glsa ) \
 		$(use_enable vim-syntax vim ) \
 		$(use_enable visibility ) \
+		$(use_enable xml ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--enable-sandbox \
 		--with-repositories=${repositories} \
