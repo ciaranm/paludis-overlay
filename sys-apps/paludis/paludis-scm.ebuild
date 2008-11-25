@@ -141,7 +141,19 @@ src_test() {
 	export PALUDIS_DO_NOTHING_SANDBOXY="portage sucks"
 	export BASH_ENV=/dev/null
 
-	emake check || die "Make check failed"
+	# some people don't have userpriv. they also suck.
+	if [[ `id -u` == 0 ]] ; then
+		export PALUDIS_REDUCED_UID=`id -u paludisbuild`
+		export PALUDIS_REDUCED_GID=`id -g paludisbuild`
+	fi
+
+	if ! emake check ; then
+		eerror "Tests failed. Looking for files for you to add to your bug report..."
+		find "${S}" -type f -name '*.epicfail' -or -name '*.log' | while read a ; do
+			eerror "    $a"
+		done
+		die "Make check failed"
+	fi
 }
 
 pkg_preinst() {
@@ -154,3 +166,4 @@ pkg_postinst() {
 		rm "${ROOT}/var/lib/paludis/news"
 	fi
 }
+
