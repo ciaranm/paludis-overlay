@@ -4,7 +4,7 @@
 
 EAPI="paludis-1"
 
-inherit git bash-completion eutils flag-o-matic
+inherit bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
