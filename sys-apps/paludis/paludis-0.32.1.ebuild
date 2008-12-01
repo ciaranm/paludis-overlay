@@ -129,8 +129,8 @@ src_test() {
 
 	# some people don't have userpriv. they also suck.
 	if [[ `id -u` == 0 ]] ; then
-		export PALUDIS_REDUCED_UID=`id -u paludisbuild`
-		export PALUDIS_REDUCED_GID=`id -g paludisbuild`
+		ewarn "Can't currently run tests as root"
+		return
 	fi
 
 	if ! emake check ; then
