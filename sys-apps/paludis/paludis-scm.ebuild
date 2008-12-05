@@ -141,12 +141,6 @@ src_test() {
 	export PALUDIS_DO_NOTHING_SANDBOXY="portage sucks"
 	export BASH_ENV=/dev/null
 
-	# some people don't have userpriv. they also suck.
-	if [[ `id -u` == 0 ]] ; then
-		ewarn "Can't currently run tests as root"
-		return
-	fi
-
 	if ! emake check ; then
 		eerror "Tests failed. Looking for files for you to add to your bug report..."
 		find "${S}" -type f -name '*.epicfail' -or -name '*.log' | while read a ; do
