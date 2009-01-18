@@ -10,7 +10,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="cran doc gems inquisitio portage pink python qa ruby vim-syntax visibility xml zsh-completion"
+IUSE="cran doc gems inquisitio portage pink python-bindings qa ruby-bindings vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -21,8 +21,8 @@ COMMON_DEPEND="
 	>=app-shells/bash-3
 	qa? ( dev-libs/pcre++ >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/pcre++ )
-	ruby? ( >=dev-lang/ruby-1.8 )
-	python? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
+	ruby-bindings? ( >=dev-lang/ruby-1.8 )
+	python-bindings? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
 		>=dev-libs/boost-1.33.1-r1 )
 	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
 	xml? ( >=dev-libs/libxml2-2.6 )"
@@ -33,8 +33,8 @@ DEPEND="${COMMON_DEPEND}
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
-		python? ( dev-python/epydoc dev-python/pygments )
-		ruby? ( dev-ruby/syntax dev-ruby/allison )
+		python-bindings? ( dev-python/epydoc dev-python/pygments )
+		ruby-bindings? ( dev-ruby/syntax dev-ruby/allison )
 	)
 	dev-util/pkgconfig"
 
@@ -64,21 +64,7 @@ create-paludis-user() {
 }
 
 pkg_setup() {
-	replace-flags -Os -O2
-	replace-flags -O3 -O2
 	create-paludis-user
-
-	FIXED_MAKEOPTS=""
-	m=$(free -m | sed -n -e '/cache:/s,^[^[:digit:]]\+[[:digit:]]\+[^[:digit:]]\+\([[:digit:]]\+\).*,\1,p')
-	j=$(echo "$MAKEOPTS" | sed -n -e 's,.*-j\([[:digit:]]\+\).*,\1,p' )
-	if [[ -n "${m}" ]] && [[ -n "${j}" ]] && (( ${j} > 1 )); then
-		if (( m < j * 512 )) ; then
-			FIXED_MAKEOPTS="-j$(( m / 512 ))"
-			[[ ${FIXED_MAKEOPTS} == "-j0" ]] && FIXED_MAKEOPTS="-j1"
-			ewarn "Your MAKEOPTS -j is too high. To stop the kernel from throwing a hissy fit"
-			ewarn "when g++ eats all your RAM, we'll use ${FIXED_MAKEOPTS} instead."
-		fi
-	fi
 }
 
 src_compile() {
@@ -90,10 +76,10 @@ src_compile() {
 		$(use_enable doc doxygen ) \
 		$(use_enable pink ) \
 		$(use_enable qa ) \
-		$(use_enable ruby ) \
-		$(useq ruby && useq doc && echo --enable-ruby-doc ) \
-		$(use_enable python ) \
-		$(useq python && useq doc && echo --enable-python-doc ) \
+		$(use_enable ruby-bindings ruby ) \
+		$(useq ruby-bindings && useq doc && echo --enable-ruby-doc ) \
+		$(use_enable python-bindings python ) \
+		$(useq python-bindings && useq doc && echo --enable-python-doc ) \
 		$(use_enable vim-syntax vim ) \
 		$(use_enable visibility ) \
 		$(use_enable xml ) \
@@ -154,10 +140,6 @@ src_test() {
 		done
 		die "Make check failed"
 	fi
-}
-
-pkg_preinst() {
-	create-paludis-user
 }
 
 pkg_postinst() {
