@@ -69,7 +69,7 @@ pkg_setup() {
 
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default accerso adjutrix importare \
+	local clients=`echo default accerso appareo adjutrix importare \
 		$(usev inquisitio ) instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
