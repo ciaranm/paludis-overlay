@@ -91,7 +91,7 @@ src_compile() {
 		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
-	emake ${FIXED_MAKEOPTS} || die "emake failed"
+	emake || die "emake failed"
 }
 
 src_install() {
