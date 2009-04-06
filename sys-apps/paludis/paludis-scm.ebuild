@@ -93,6 +93,7 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
+		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
 	emake || die "emake failed"
