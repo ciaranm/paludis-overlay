@@ -4,7 +4,9 @@
 
 EAPI="paludis-1"
 
-inherit git bash-completion eutils flag-o-matic
+SCM_REPOSITORY="git://git.pioto.org/paludis.git"
+SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
+inherit scm-git bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
@@ -55,9 +57,6 @@ PDEPEND="
 
 PROVIDE="virtual/portage"
 
-EGIT_REPO_URI="git://git.pioto.org/paludis.git"
-EGIT_BOOTSTRAP="./autogen.bash"
-
 create-paludis-user() {
 	enewgroup "paludisbuild"
 	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild"
@@ -65,6 +64,12 @@ create-paludis-user() {
 
 pkg_setup() {
 	create-paludis-user
+}
+
+src_unpack() {
+	scm_src_unpack
+	cd "${S}"
+	./autogen.bash || die "autogen.bash failed"
 }
 
 src_compile() {
@@ -88,7 +93,6 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
-		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
 	emake || die "emake failed"
