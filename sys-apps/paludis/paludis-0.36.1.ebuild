@@ -4,15 +4,13 @@
 
 EAPI="paludis-1"
 
-SCM_REPOSITORY="git://git.pioto.org/paludis.git"
-SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
-inherit scm-git bash-completion eutils flag-o-matic
+inherit bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI=""
+SRC_URI="http://paludis.pioto.org/download/${P}.tar.bz2"
 
-IUSE="cran doc gems inquisitio portage pink python-bindings qa ruby-bindings vim-syntax visibility xml zsh-completion"
+IUSE="doc inquisitio portage pink python-bindings qa ruby-bindings vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -26,12 +24,9 @@ COMMON_DEPEND="
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
 	python-bindings? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
 		>=dev-libs/boost-1.33.1-r1 )
-	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
 	xml? ( >=dev-libs/libxml2-2.6 )"
 
 DEPEND="${COMMON_DEPEND}
-	sys-devel/autoconf:2.5
-	sys-devel/automake:1.10
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
@@ -46,14 +41,7 @@ RDEPEND="${COMMON_DEPEND}
 # Keep syntax as a PDEPEND. It avoids issues when Paludis is used as the
 # default virtual/portage provider.
 PDEPEND="
-	vim-syntax? ( >=app-editors/vim-core-7 )
-	suggested:
-		dev-util/git
-		dev-util/subversion
-		dev-util/cvs
-		dev-util/darcs
-		net-misc/rsync
-		net-misc/wget"
+	vim-syntax? ( >=app-editors/vim-core-7 )"
 
 PROVIDE="virtual/portage"
 
@@ -66,15 +54,9 @@ pkg_setup() {
 	create-paludis-user
 }
 
-src_unpack() {
-	scm_src_unpack
-	cd "${S}"
-	./autogen.bash || die "autogen.bash failed"
-}
-
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default accerso appareo adjutrix importare \
+	local clients=`echo default accerso adjutrix appareo importare \
 		$(usev inquisitio ) instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
@@ -93,7 +75,6 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
-		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
 	emake || die "emake failed"
