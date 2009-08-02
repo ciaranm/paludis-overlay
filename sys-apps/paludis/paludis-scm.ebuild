@@ -24,7 +24,7 @@ COMMON_DEPEND="
 	qa? ( dev-libs/libpcre[cxx] >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/libpcre[cxx] )
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
-	python-bindings? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
+	python-bindings? ( >=dev-lang/python-2.4:=
 		>=dev-libs/boost-1.33.1-r1 )
 	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
 	xml? ( >=dev-libs/libxml2-2.6 )"
