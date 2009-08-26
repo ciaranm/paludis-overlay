@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 
 COMMON_DEPEND="
-	>=app-admin/eselect-1.0.2
+	>=app-admin/eselect-1.2_rc1
 	>=app-admin/eselect-news-20071201
 	>=app-shells/bash-3.2
 	qa? ( dev-libs/libpcre[cxx] >=dev-libs/libxml2-2.6 app-crypt/gnupg )
