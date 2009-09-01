@@ -38,7 +38,7 @@ src_test() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
-	dodoc README.mkd NEWS TODO.mkd AUTHORS.mkd || die "dodoc failed"
+	dodoc README.mkd NEWS.mkd TODO.mkd AUTHORS.mkd || die "dodoc failed"
 	doman data/sydbox.1 || die "doman failed"
 }
 
