@@ -7,8 +7,8 @@ EAPI=paludis-1
 inherit linux-info
 
 DESCRIPTION="Sydbox the other sandbox"
-HOMEPAGE="http://alip.github.com/sydbox/"
-SRC_URI="http://alip.anapnea.net/${PN}/${P}.tar.bz2"
+HOMEPAGE="http://projects.0x90.dk/wiki/sydbox"
+SRC_URI="http://dev.exherbo.org/~alip/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
