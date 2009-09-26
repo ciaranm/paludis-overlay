@@ -17,7 +17,8 @@ IUSE=""
 
 RDEPEND=">=dev-libs/glib-2.18:2"
 DEPEND="${RDEPEND}
-	>=dev-libs/check-0.9.4"
+	>=dev-libs/check-0.9.4
+	>=dev-util/pkgconfig-0.20.0"
 
 RESTRICT="test" # needs newer Perl
 
