@@ -100,7 +100,7 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS README ChangeLog NEWS
+	dodoc AUTHORS README NEWS
 
 	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
