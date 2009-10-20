@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="cran doc gems inquisitio portage pink python-bindings qa ruby-bindings vim-syntax visibility xml zsh-completion"
+IUSE="cran doc gems inquisitio portage pink python-bindings ruby-bindings vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -20,7 +20,6 @@ KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 COMMON_DEPEND="
 	>=app-admin/eselect-1.2_rc1
 	>=app-shells/bash-3.2
-	qa? ( dev-libs/libpcre[cxx] >=dev-libs/libxml2-2.6 app-crypt/gnupg )
 	inquisitio? ( dev-libs/libpcre[cxx] )
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
 	python-bindings? ( >=dev-lang/python-2.4:=
@@ -79,7 +78,6 @@ src_compile() {
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable pink ) \
-		$(use_enable qa ) \
 		$(use_enable ruby-bindings ruby ) \
 		$(useq ruby-bindings && useq doc && echo --enable-ruby-doc ) \
 		$(use_enable python-bindings python ) \
@@ -108,9 +106,6 @@ src_install() {
 	BASH_COMPLETION_NAME="importare" dobashcompletion bash-completion/importare
 	BASH_COMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
 	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
-	use qa && \
-		BASH_COMPLETION_NAME="qualudis" \
-		dobashcompletion bash-completion/qualudis
 	use inquisitio && \
 		BASH_COMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
