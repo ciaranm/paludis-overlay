@@ -29,7 +29,7 @@ COMMON_DEPEND="
 
 DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf:2.5
-	sys-devel/automake:1.10
+	sys-devel/automake:1.11
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
