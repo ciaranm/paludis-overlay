@@ -22,8 +22,7 @@ COMMON_DEPEND="
 	>=app-shells/bash-3.2
 	inquisitio? ( dev-libs/libpcre[cxx] )
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
-	python-bindings? ( >=dev-lang/python-2.4:=
-		>=dev-libs/boost-1.33.1-r1 )
+	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0 )
 	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
 	xml? ( >=dev-libs/libxml2-2.6 )"
 

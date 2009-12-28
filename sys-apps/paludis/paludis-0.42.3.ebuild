@@ -20,8 +20,7 @@ COMMON_DEPEND="
 	>=app-shells/bash-3.2
 	inquisitio? ( dev-libs/libpcre[cxx] )
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
-	python-bindings? ( || ( dev-lang/python:2.4 dev-lang/python:2.5 )
-		>=dev-libs/boost-1.33.1-r1 )
+	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0 )
 	xml? ( >=dev-libs/libxml2-2.6 )"
 
 DEPEND="${COMMON_DEPEND}
