@@ -8,7 +8,7 @@ inherit bash-completion eutils flag-o-matic
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI="http://dev.exherbo.org/~ingmar/distfiles/${P}.tar.bz2"
+SRC_URI="http://paludis.pioto.org/download/${P}.tar.bz2"
 
 IUSE="doc inquisitio portage pink python-bindings ruby-bindings vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
