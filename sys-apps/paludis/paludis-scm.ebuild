@@ -61,6 +61,7 @@ create-paludis-user() {
 
 pkg_setup() {
 	create-paludis-user
+	replace-flags -Os -O2
 }
 
 src_unpack() {
