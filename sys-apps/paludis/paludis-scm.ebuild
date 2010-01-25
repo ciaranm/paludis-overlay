@@ -85,7 +85,6 @@ src_compile() {
 		$(use_enable visibility ) \
 		$(use_enable xml ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
-		--enable-sandbox \
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
