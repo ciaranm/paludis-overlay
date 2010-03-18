@@ -45,10 +45,10 @@ RDEPEND="${COMMON_DEPEND}
 PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
 	suggested:
-		dev-util/git
+		dev-vcs/git
 		dev-util/subversion
 		dev-util/cvs
-		dev-util/darcs
+		dev-vcs/darcs
 		net-misc/rsync
 		net-misc/wget"
 
