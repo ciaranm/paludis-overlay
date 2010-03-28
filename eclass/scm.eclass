@@ -56,7 +56,7 @@ scm_get_var() {
 
 scm_set_var() {
 	[[ ${#} -eq 2 ]] || die "scm_set_var needs exactly two arguments"
-	eval "$(scm_var_name ${1})=\${2}"
+	printf -v $(scm_var_name ${1}) %s "${2}"
 }
 
 scm_modify_var() {
@@ -219,7 +219,7 @@ scm_src_fetch_extra() {
 scm_scmrevision_one() {
 	local rev=$(scm_call revision)
 	[[ -n ${rev} ]] || die "could not determine revision for ${SCM_THIS:-primary repository}"
-	SCM_PKG_SCM_REVISION_RESULT=${SCM_PKG_SCM_REVISION_RESULT},${SCM_THIS}=${rev}
+	SCM_PKG_SCM_REVISION_RESULT+=,${SCM_THIS}=${rev}
 }
 
 scm_pkg_scm_revision() {
@@ -334,12 +334,12 @@ scm_global_stuff() {
 
 	scm_call check_vars
 
-	DEPEND="${DEPEND} $(scm_call dependencies)"
+	DEPEND+=" $(scm_call dependencies)"
 }
 
 SCM_HOME=${PORTAGE_ACTUAL_DISTDIR-${DISTDIR}}/scm
 scm_finalise() {
-	DEPEND="${DEPEND} >=sys-apps/util-linux-2.13_pre2"
+	DEPEND+=" >=sys-apps/util-linux-2.13_pre2"
 	scm_{for_each,global_stuff}
 }
 [[ -n ${SCM_REPOSITORY} ]] && scm_finalise

@@ -54,11 +54,11 @@ scm-git_git() {
 
 	local need_git_dir=yes global=( )
 	while [[ ${#} -gt 0 && ${1} == -* ]]; do
-		global=( "${global[@]}" "${1}" )
+		global+=( "${1}" )
 		[[ ${1} == --git-dir=* ]] && need_git_dir=
 		shift
 	done
-	[[ ${1} != clone && -n ${need_git_dir} ]] && global=( "${global[@]}" --git-dir="$(scm_get_var CHECKOUT_TO)" )
+	[[ ${1} != clone && -n ${need_git_dir} ]] && global+=( --git-dir="$(scm_get_var CHECKOUT_TO)" )
 
 	${echo} git "${global[@]}" "${@}"
 	GIT_PAGER=cat git "${global[@]}" "${@}" || scm_die_unless_nonfatal "git ${1} failed"
