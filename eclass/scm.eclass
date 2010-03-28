@@ -367,7 +367,7 @@ scm_finalise() {
 		fi
 	done
 }
-[[ -n ${SCM_REPOSITORY} ]] && scm_finalise
+[[ -z ${SCM_NO_AUTOMATIC_FINALISE} ]] && scm_finalise
 
 #EXPORT_FUNCTIONS src_fetch_extra pkg_scm_revision src_unpack pkg_info
 EXPORT_FUNCTIONS src_unpack pkg_info
