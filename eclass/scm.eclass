@@ -37,9 +37,24 @@ scm_die_unless_nonfatal() {
 
 scm_for_each() {
 	[[ ${#} -ge 1 ]] || die "scm_for_each needs at least one argument"
-	local SCM_THIS
-	for SCM_THIS in "" ${SCM_SECONDARY_REPOSITORIES}; do
-		"${@}"
+
+	[[ -z ${SCM_NO_PRIMARY_REPOSITORY} ]] && SCM_THIS= "${@}"
+
+	local t active=true
+	local -i level=0
+	for t in ${SCM_SECONDARY_REPOSITORIES}; do
+		if [[ ${t} == *\? ]]; then
+			${active} && ! use ${t%\?} && active=false
+		elif [[ ${t} == \( ]]; then
+			${active} || (( level++ ))
+		elif [[ ${t} == \) ]]; then
+			if ! ${active}; then
+				(( level-- ))
+				[[ ${level} -eq 0 ]] && active=true
+			fi
+		else
+			${active} && SCM_THIS=${t} "${@}"
+		fi
 	done
 }
 
@@ -340,7 +355,17 @@ scm_global_stuff() {
 SCM_HOME=${PORTAGE_ACTUAL_DISTDIR-${DISTDIR}}/scm
 scm_finalise() {
 	DEPEND+=" >=sys-apps/util-linux-2.13_pre2"
-	scm_{for_each,global_stuff}
+
+	[[ -z ${SCM_NO_PRIMARY_REPOSITORY} ]] && SCM_THIS= scm_global_stuff
+
+	local t
+	for t in ${SCM_SECONDARY_REPOSITORIES}; do
+		if [[ ${t} == *\? || ${t} == \( || ${t} == \) ]]; then
+			DEPEND+=" ${t}"
+		else
+			SCM_THIS=${t} scm_global_stuff
+		fi
+	done
 }
 [[ -n ${SCM_REPOSITORY} ]] && scm_finalise
 
