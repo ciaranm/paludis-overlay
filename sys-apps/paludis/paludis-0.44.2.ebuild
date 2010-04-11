@@ -81,14 +81,14 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README ChangeLog NEWS
 
-	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
-	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	BASH_COMPLETION_NAME="importare" dobashcompletion bash-completion/importare
-	BASH_COMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
-	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
+	BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
+	BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
+	BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
+	BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
+	BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
+	BASHCOMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
 	use inquisitio && \
-		BASH_COMPLETION_NAME="inquisitio" \
+		BASHCOMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
 
 	if use zsh-completion ; then
