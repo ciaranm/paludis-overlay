@@ -47,7 +47,7 @@ PDEPEND="
 	suggested:
 		dev-vcs/git
 		dev-util/subversion
-		dev-util/cvs
+		dev-vcs/cvs
 		dev-vcs/darcs
 		net-misc/rsync
 		net-misc/wget"
