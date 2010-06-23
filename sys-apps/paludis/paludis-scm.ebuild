@@ -46,7 +46,7 @@ PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
 	suggested:
 		dev-vcs/git
-		dev-util/subversion
+		dev-vcs/subversion
 		dev-vcs/cvs
 		dev-vcs/darcs
 		net-misc/rsync
