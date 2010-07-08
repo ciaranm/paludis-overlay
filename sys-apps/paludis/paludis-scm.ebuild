@@ -6,7 +6,7 @@ EAPI="paludis-1"
 
 SCM_REPOSITORY="git://git.pioto.org/paludis.git"
 SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
-inherit scm-git bash-completion eutils flag-o-matic
+inherit scm-git bash-completion eutils
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
@@ -61,7 +61,6 @@ create-paludis-user() {
 
 pkg_setup() {
 	create-paludis-user
-	replace-flags -Os -O2
 }
 
 src_unpack() {
