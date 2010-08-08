@@ -53,7 +53,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
+	local repositories=`echo default unavailable unpackaged | tr -s \  ,`
 	local clients=`echo default accerso adjutrix appareo cave importare inquisitio instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
