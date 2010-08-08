@@ -4,15 +4,13 @@
 
 EAPI="paludis-1"
 
-SCM_REPOSITORY="git://git.pioto.org/paludis.git"
-SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
-inherit scm-git bash-completion eutils
+inherit bash-completion eutils
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI=""
+SRC_URI="http://paludis.pioto.org/download/${P}.tar.bz2"
 
-IUSE="cran doc gems portage pink python-bindings ruby-bindings vim-syntax visibility xml zsh-completion"
+IUSE="doc portage pink python-bindings ruby-bindings vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -23,12 +21,9 @@ COMMON_DEPEND="
 	dev-libs/libpcre[cxx]
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
-	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
 	xml? ( >=dev-libs/libxml2-2.6 )"
 
 DEPEND="${COMMON_DEPEND}
-	sys-devel/autoconf:2.5
-	sys-devel/automake:1.11
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
@@ -43,14 +38,7 @@ RDEPEND="${COMMON_DEPEND}
 # Keep syntax as a PDEPEND. It avoids issues when Paludis is used as the
 # default virtual/portage provider.
 PDEPEND="
-	vim-syntax? ( >=app-editors/vim-core-7 )
-	suggested:
-		dev-vcs/git
-		dev-vcs/subversion
-		dev-vcs/cvs
-		dev-vcs/darcs
-		net-misc/rsync
-		net-misc/wget"
+	vim-syntax? ( >=app-editors/vim-core-7 )"
 
 PROVIDE="virtual/portage"
 
@@ -63,15 +51,9 @@ pkg_setup() {
 	create-paludis-user
 }
 
-src_unpack() {
-	scm_src_unpack
-	cd "${S}"
-	./autogen.bash || die "autogen.bash failed"
-}
-
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default accerso appareo adjutrix cave importare instruo paludis reconcilio | tr -s \  ,`
+	local clients=`echo default accerso adjutrix appareo cave importare inquisitio instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -87,7 +69,6 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
-		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
 	emake || die "emake failed"
@@ -110,11 +91,11 @@ src_install() {
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_paludis
 		doins zsh-completion/_adjutrix
-		doins zsh-completion/_cave
 		doins zsh-completion/_importare
 		doins zsh-completion/_reconcilio
 		doins zsh-completion/_inquisitio
 		doins zsh-completion/_paludis_packages
+		doins zsh-completion/_cave
 	fi
 }
 
