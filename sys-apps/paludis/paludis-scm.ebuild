@@ -45,6 +45,7 @@ RDEPEND="${COMMON_DEPEND}
 PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
 	suggested:
+		app-admin/eselect-package-manager
 		dev-vcs/git
 		dev-vcs/subversion
 		dev-vcs/cvs
