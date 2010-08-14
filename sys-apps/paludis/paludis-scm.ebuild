@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="cran doc gems portage pink python-bindings ruby-bindings vim-syntax visibility xml zsh-completion"
+IUSE="cran doc gems portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -24,7 +24,8 @@ COMMON_DEPEND="
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gems? ( >=dev-libs/syck-0.55 >=dev-ruby/rubygems-0.8.11 )
-	xml? ( >=dev-libs/libxml2-2.6 )"
+	xml? ( >=dev-libs/libxml2-2.6 )
+	search-index? ( dev-db/sqlite:3 )"
 
 DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf:2.5
@@ -84,6 +85,7 @@ src_compile() {
 		$(use_enable vim-syntax vim ) \
 		$(use_enable visibility ) \
 		$(use_enable xml ) \
+		$(use_enable search-index ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
