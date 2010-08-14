@@ -22,6 +22,7 @@
 		  <pkg>dev-libs/boost</pkg></flag>
 	  <flag name='qa'>Enable QA tools</flag>
 	  <flag name='ruby-bindings'>Enable Ruby bindings.</flag>
+	  <flag name='search-index'>Enable cave search --index. Requires sqlite.</flag>
 	  <flag name='visibility'>Enable visibility support (g++ >=4.1)</flag>
 	  <flag name='zsh-completion'>Enable zsh completion support</flag>
   </use>
