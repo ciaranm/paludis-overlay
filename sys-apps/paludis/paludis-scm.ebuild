@@ -58,7 +58,7 @@ PROVIDE="virtual/portage"
 
 create-paludis-user() {
 	enewgroup "paludisbuild"
-	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild"
+	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild,tty"
 }
 
 pkg_setup() {
