@@ -4,15 +4,13 @@
 
 EAPI="paludis-1"
 
-SCM_REPOSITORY="git://git.pioto.org/paludis.git"
-SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
-inherit scm-git bash-completion eutils
+inherit bash-completion eutils
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI=""
+SRC_URI="http://paludis.pioto.org/download/${P}.tar.bz2"
 
-IUSE="cran doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins"
+IUSE="doc portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -23,14 +21,11 @@ COMMON_DEPEND="
 	dev-libs/libpcre[cxx]
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
-	gemcutter? ( >=dev-libs/jansson-1.3 )
 	xml? ( >=dev-libs/libxml2-2.6 )
 	search-index? ( dev-db/sqlite:3 )
 	pbins? ( >=app-arch/libarchive-2.8.4[-xattr] )"
 
 DEPEND="${COMMON_DEPEND}
-	sys-devel/autoconf:2.5
-	sys-devel/automake:1.11
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
@@ -46,14 +41,7 @@ RDEPEND="${COMMON_DEPEND}
 # default virtual/portage provider.
 PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
-	suggested:
-		app-admin/eselect-package-manager
-		dev-vcs/git
-		dev-vcs/subversion
-		dev-vcs/cvs
-		dev-vcs/darcs
-		net-misc/rsync
-		net-misc/wget"
+	app-admin/eselect-package-manager"
 
 PROVIDE="virtual/portage"
 
@@ -66,15 +54,9 @@ pkg_setup() {
 	create-paludis-user
 }
 
-src_unpack() {
-	scm_src_unpack
-	cd "${S}"
-	./autogen.bash || die "autogen.bash failed"
-}
-
 src_compile() {
-	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gemcutter ) | tr -s \  ,`
-	local clients=`echo default accerso appareo adjutrix cave importare instruo paludis reconcilio | tr -s \  ,`
+	local repositories=`echo default unavailable unpackaged | tr -s \  ,`
+	local clients=`echo default accerso adjutrix appareo cave importare inquisitio instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -92,7 +74,6 @@ src_compile() {
 		--with-repositories=${repositories} \
 		--with-clients=${clients} \
 		--with-environments=${environments} \
-		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
 	emake || die "emake failed"
@@ -115,11 +96,11 @@ src_install() {
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_paludis
 		doins zsh-completion/_adjutrix
-		doins zsh-completion/_cave
 		doins zsh-completion/_importare
 		doins zsh-completion/_reconcilio
 		doins zsh-completion/_inquisitio
 		doins zsh-completion/_paludis_packages
+		doins zsh-completion/_cave
 	fi
 }
 

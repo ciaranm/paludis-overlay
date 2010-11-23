@@ -14,6 +14,7 @@
 	  <flag name='cran'>Enable support for CRAN repositories</flag>
 	  <flag name='gemcutter'>Enable support for Ruby Gemcutter repositories (incomplete)</flag>
 	  <flag name='inquisitio'>Enable inquisitio, the search client</flag>
+	  <flag name='pbins'>Enable support for pbin binary packages</flag>
 	  <flag name='pink'>Use a less boring colourscheme than the default</flag>
 	  <flag name='portage'>Enable experimental support for Portage
 		  configuration formats</flag>
