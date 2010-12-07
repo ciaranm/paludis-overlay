@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
 
 COMMON_DEPEND="
-	>=app-admin/eselect-1.2_rc1
+	>=app-admin/eselect-1.2.13
 	>=app-shells/bash-3.2
 	dev-libs/libpcre[cxx]
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
