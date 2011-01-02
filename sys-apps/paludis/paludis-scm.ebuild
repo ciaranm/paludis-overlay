@@ -52,7 +52,7 @@ PDEPEND="
 		dev-vcs/subversion
 		dev-vcs/cvs
 		dev-vcs/darcs
-		net-misc/rsync
+		>=net-misc/rsync-3
 		net-misc/wget"
 
 PROVIDE="virtual/portage"
