@@ -74,7 +74,7 @@ src_unpack() {
 
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gemcutter ) | tr -s \  ,`
-	local clients=`echo default accerso appareo adjutrix cave importare instruo paludis reconcilio | tr -s \  ,`
+	local clients=`echo default accerso appareo adjutrix cave instruo paludis | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -105,10 +105,7 @@ src_install() {
 	BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
 	BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
 	BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
-	BASHCOMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
-	BASHCOMPLETION_NAME="inquisitio" dobashcompletion bash-completion/inquisitio
 	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
 
 	if use zsh-completion ; then
@@ -116,9 +113,6 @@ src_install() {
 		doins zsh-completion/_paludis
 		doins zsh-completion/_adjutrix
 		doins zsh-completion/_cave
-		doins zsh-completion/_importare
-		doins zsh-completion/_reconcilio
-		doins zsh-completion/_inquisitio
 		doins zsh-completion/_paludis_packages
 	fi
 }
