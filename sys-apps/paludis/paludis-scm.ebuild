@@ -74,7 +74,7 @@ src_unpack() {
 
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gemcutter ) | tr -s \  ,`
-	local clients=`echo default accerso appareo adjutrix cave instruo paludis | tr -s \  ,`
+	local clients=`echo default accerso appareo cave instruo | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -102,16 +102,12 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
-	BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
 	BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
 	BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
 	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
 
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
-		doins zsh-completion/_paludis
-		doins zsh-completion/_adjutrix
 		doins zsh-completion/_cave
 		doins zsh-completion/_paludis_packages
 	fi
