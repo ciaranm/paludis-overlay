@@ -31,7 +31,7 @@ COMMON_DEPEND="
 DEPEND="${COMMON_DEPEND}
 	app-text/asciidoc
 	app-text/xmlto
-	sys-devel/autoconf:2.5
+	>=sys-devel/autoconf-2.68:2.5
 	sys-devel/automake:1.11
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
