@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="cran doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins"
+IUSE="doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -75,7 +75,7 @@ src_unpack() {
 }
 
 src_compile() {
-	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gemcutter ) | tr -s \  ,`
+	local repositories=`echo default unavailable unpackaged $(usev gemcutter ) | tr -s \  ,`
 	local clients=`echo default accerso appareo cave instruo | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
