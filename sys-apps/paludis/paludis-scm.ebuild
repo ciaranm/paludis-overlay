@@ -50,10 +50,10 @@ PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
 	suggested:
 		app-admin/eselect-package-manager
+		dev-vcs/bzr
 		dev-vcs/git
+		dev-vcs/mercurial
 		dev-vcs/subversion
-		dev-vcs/cvs
-		dev-vcs/darcs
 		>=net-misc/rsync-3
 		net-misc/wget"
 
