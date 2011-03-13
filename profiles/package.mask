@@ -1,3 +1,5 @@
 ~sys-apps/paludis-scm
 ~dev-cpp/libwrapiter-scm
 ~dev-libs/libyaml-scm
+
+=sys-apps/paludis-0.60.0_pre1
