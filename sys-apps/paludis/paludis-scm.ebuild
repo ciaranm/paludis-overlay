@@ -29,7 +29,7 @@ COMMON_DEPEND="
 	pbins? ( >=app-arch/libarchive-2.8.4[-xattr] )"
 
 DEPEND="${COMMON_DEPEND}
-	app-text/asciidoc
+	>=app-text/asciidoc-8.6.3
 	app-text/xmlto
 	>=sys-devel/autoconf-2.65:2.5
 	sys-devel/automake:1.11

@@ -27,7 +27,7 @@ COMMON_DEPEND="
 	sys-apps/file"
 
 DEPEND="${COMMON_DEPEND}
-	app-text/asciidoc
+	>=app-text/asciidoc-8.6.3
 	app-text/xmlto
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
