@@ -46,8 +46,6 @@ PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
 	app-admin/eselect-package-manager"
 
-PROVIDE="virtual/portage"
-
 create-paludis-user() {
 	enewgroup "paludisbuild"
 	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild,tty"
