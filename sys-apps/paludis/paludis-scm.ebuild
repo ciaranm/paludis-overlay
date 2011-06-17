@@ -75,7 +75,6 @@ src_unpack() {
 
 src_compile() {
 	local repositories=`echo default unavailable unpackaged $(usev gemcutter ) | tr -s \  ,`
-	local clients=`echo default accerso appareo cave instruo | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -91,7 +90,6 @@ src_compile() {
 		$(use_enable pbins ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--with-repositories=${repositories} \
-		--with-clients=${clients} \
 		--with-environments=${environments} \
 		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
@@ -103,8 +101,6 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
 	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
 
 	if use zsh-completion ; then
