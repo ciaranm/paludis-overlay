@@ -7,8 +7,8 @@ EAPI="paludis-1"
 inherit bash-completion eutils
 
 DESCRIPTION="paludis, the other package mangler"
-HOMEPAGE="http://paludis.pioto.org/"
-SRC_URI="http://paludis.pioto.org/download/${P}.tar.bz2"
+HOMEPAGE="http://paludis.exherbo.org/"
+SRC_URI="http://paludis.exherbo.org/download/${P}.tar.bz2"
 
 IUSE="doc portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins prebuilt-documentation"
 LICENSE="GPL-2 vim-syntax? ( vim )"

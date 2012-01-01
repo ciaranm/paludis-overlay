@@ -4,12 +4,12 @@
 
 EAPI="paludis-1"
 
-SCM_REPOSITORY="git://git.pioto.org/paludis.git"
+SCM_REPOSITORY="git://git.exherbo.org/paludis/paludis.git"
 SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
 inherit scm-git bash-completion eutils
 
 DESCRIPTION="paludis, the other package mangler"
-HOMEPAGE="http://paludis.pioto.org/"
+HOMEPAGE="http://paludis.exherbo.org/"
 SRC_URI=""
 
 IUSE="doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins"
