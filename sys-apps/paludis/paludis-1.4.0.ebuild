@@ -4,15 +4,13 @@
 
 EAPI="paludis-1"
 
-SCM_REPOSITORY="git://git.exherbo.org/paludis/paludis.git"
-SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
-inherit scm-git bash-completion eutils
+inherit bash-completion eutils
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.exherbo.org/"
-SRC_URI=""
+SRC_URI="http://paludis.exherbo.org/download/${P}.tar.bz2"
 
-IUSE="doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins"
+IUSE="doc portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins prebuilt-documentation"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -23,16 +21,16 @@ COMMON_DEPEND="
 	dev-libs/libpcre[cxx]
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
-	gemcutter? ( >=dev-libs/jansson-1.3 )
 	xml? ( >=dev-libs/libxml2-2.6 )
 	search-index? ( dev-db/sqlite:3 )
-	pbins? ( >=app-arch/libarchive-3.1.2[-xattr] )"
+	pbins? ( >=app-arch/libarchive-3.1.2[-xattr] )
+	sys-apps/file"
 
 DEPEND="${COMMON_DEPEND}
-	>=app-text/asciidoc-8.6.3
-	app-text/xmlto
-	>=sys-devel/autoconf-2.65:2.5
-	sys-devel/automake:1.11
+	!prebuilt-documentation? (
+		>=app-text/asciidoc-8.6.3
+		app-text/xmlto
+	)
 	doc? (
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
@@ -49,32 +47,36 @@ RDEPEND="${COMMON_DEPEND}
 # default virtual/portage provider.
 PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
-	suggested:
-		app-admin/eselect-package-manager
-		dev-vcs/bzr
-		dev-vcs/git
-		dev-vcs/mercurial
-		dev-vcs/subversion
-		>=net-misc/rsync-3
-		net-misc/wget"
+	app-admin/eselect-package-manager"
 
 create-paludis-user() {
 	enewgroup "paludisbuild"
 	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild,tty"
 }
 
-pkg_setup() {
-	create-paludis-user
+pkg_pretend() {
+	if id paludisbuild >/dev/null 2>/dev/null ; then
+		if ! groups paludisbuild | grep --quiet '\<tty\>' ; then
+			ewarn "The 'paludisbuild' user is now expected to be a member of the"
+			ewarn "'tty' group. You should add the user to this group before"
+			ewarn "upgrading Paludis."
+		fi
+	fi
 }
 
-src_unpack() {
-	scm_src_unpack
-	cd "${S}"
-	./autogen.bash || die "autogen.bash failed"
+pkg_setup() {
+	create-paludis-user
+
+	# 'paludis' tries to exec() itself after an upgrade
+	if [[ "${PKGMANAGER}" == paludis-0.[012345]* ]] && [[ -z "${CAVE}" ]] ; then
+		eerror "The 'paludis' client has been removed in Paludis 0.60. You must use"
+		eerror "'cave' to upgrade."
+		die "Can't use 'paludis' to upgrade Paludis"
+	fi
 }
 
 src_compile() {
-	local repositories=`echo default unavailable unpackaged $(usev gemcutter ) | tr -s \  ,`
+	local repositories=`echo default unavailable unpackaged | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -88,10 +90,10 @@ src_compile() {
 		$(use_enable xml ) \
 		$(use_enable search-index ) \
 		$(use_enable pbins ) \
+		$(use_enable prebuilt-documentation ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--with-repositories=${repositories} \
 		--with-environments=${environments} \
-		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
 	emake || die "emake failed"
@@ -106,7 +108,6 @@ src_install() {
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_cave
-		doins zsh-completion/_paludis_packages
 	fi
 }
 
