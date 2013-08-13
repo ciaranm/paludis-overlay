@@ -40,7 +40,7 @@ DEPEND="${COMMON_DEPEND}
 		ruby-bindings? ( dev-ruby/syntax )
 	)
 	dev-util/pkgconfig
-	dev-cpp/gtest[threads]"
+	>=dev-cpp/gtest-1.6.0-r1"
 
 RDEPEND="${COMMON_DEPEND}
 	sys-apps/sandbox"
