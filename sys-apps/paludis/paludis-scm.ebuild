@@ -31,6 +31,7 @@ COMMON_DEPEND="
 DEPEND="${COMMON_DEPEND}
 	>=app-text/asciidoc-8.6.3
 	app-text/xmlto
+	app-text/htmltidy
 	>=sys-devel/autoconf-2.65:2.5
 	sys-devel/automake:1.11
 	doc? (
