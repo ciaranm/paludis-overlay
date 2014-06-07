@@ -1,0 +1,58 @@
+From 941df265d2e7fece9c21a8824b9c5d467853e46e Mon Sep 17 00:00:00 2001
+Message-Id: <941df265d2e7fece9c21a8824b9c5d467853e46e.1392744667.git.alip@exherbo.org>
+From: Ali Polatel <alip@exherbo.org>
+Date: Tue, 18 Feb 2014 19:29:25 +0200
+Subject: [PATCH] disable utimensat for now.
+Organization: Pink Floyd
+
+Despite my various tries, I failed to reproduce this irritating issue.
+---
+ src/syscall.c     | 3 +++
+ tests/Makefile.am | 6 +++---
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/syscall.c b/src/syscall.c
+index 8d16073..5e3f7c4 100644
+--- a/src/syscall.c
++++ b/src/syscall.c
+@@ -193,6 +193,8 @@ static const sysentry_t syscall_entries[] = {
+ 		.name = "utimes",
+ 		.enter = sys_utimes,
+ 	},
++#if 0
++#error disabled until I stop being lazy and achieve to reproduce the bug.
+ 	{
+ 		.name = "utimensat",
+ 		.enter = sys_utimensat,
+@@ -201,6 +203,7 @@ static const sysentry_t syscall_entries[] = {
+ 		.name = "futimesat",
+ 		.enter = sys_futimesat,
+ 	},
++#endif
+ 
+ 	{
+ 		.name = "unlink",
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 2b7978a..fabd9a9 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -67,8 +67,8 @@ TESTS= \
+ 	t3013-fs-truncate.sh \
+ 	t3014-fs-umount.sh \
+ 	t3015-fs-umount2.sh \
+-	t3016-fs-utime.sh \
+-	t3017-fs-utimensat.sh \
++	t3016-fs-utime.sh
++#	t3017-fs-utimensat.sh \
+ 	t3018-fs-utimes.sh \
+ 	t3019-fs-unlink.sh \
+ 	t3020-fs-unlinkat.sh \
+@@ -80,4 +80,4 @@ TESTS= \
+ 	t3026-fs-symlinkat.sh \
+ 	t3027-fs-mount.sh
+ check_SCRIPTS+= $(TESTS)
+-EXTRA_DIST+= $(TESTS)
++EXTRA_DIST+= $(TESTS) t3017-fs-utimensat.sh
+-- 
+1.8.5.3
+
