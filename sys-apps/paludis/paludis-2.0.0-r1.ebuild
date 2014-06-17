@@ -36,7 +36,7 @@ DEPEND="${COMMON_DEPEND}
 		python-bindings? ( dev-python/sphinx )
 		ruby-bindings? ( dev-ruby/syntax )
 	)
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	>=dev-cpp/gtest-1.6.0-r1"
 
 RDEPEND="${COMMON_DEPEND}
