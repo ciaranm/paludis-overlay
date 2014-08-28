@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.exherbo.org/"
 SRC_URI=""
 
-IUSE="doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax visibility xml zsh-completion pbins"
+IUSE="doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax xml zsh-completion pbins"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -85,7 +85,6 @@ src_compile() {
 		$(use_enable python-bindings python ) \
 		$(useq python-bindings && useq doc && echo --enable-python-doc ) \
 		$(use_enable vim-syntax vim ) \
-		$(use_enable visibility ) \
 		$(use_enable xml ) \
 		$(use_enable search-index ) \
 		$(use_enable pbins ) \
