@@ -29,6 +29,7 @@ COMMON_DEPEND="
 	pbins? ( >=app-arch/libarchive-3.1.2[-xattr] )"
 
 DEPEND="${COMMON_DEPEND}
+    || ( >=sys-devel/gcc-4.7 sys-devel/clang )
 	>=app-text/asciidoc-8.6.3
 	app-text/xmlto
 	app-text/htmltidy
