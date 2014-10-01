@@ -4,7 +4,7 @@
 
 EAPI="paludis-1"
 
-inherit bash-completion eutils
+inherit bash-completion user
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.exherbo.org/"

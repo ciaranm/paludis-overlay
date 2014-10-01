@@ -6,7 +6,7 @@ EAPI="paludis-1"
 
 SCM_REPOSITORY="git://git.exherbo.org/paludis/paludis.git"
 SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
-inherit scm-git bash-completion eutils
+inherit scm-git bash-completion user
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.exherbo.org/"
