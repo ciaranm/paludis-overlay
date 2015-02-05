@@ -12,7 +12,9 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.exherbo.org/"
 SRC_URI=""
 
-IUSE="doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax xml zsh-completion pbins"
+RUBY_VERSIONS=( 1.9:ruby19 2.0:ruby20 2.1:ruby21 2.2:ruby22 )
+
+IUSE="doc gemcutter portage pink python-bindings ruby-bindings search-index vim-syntax xml zsh-completion pbins ${RUBY_VERSIONS[*]/#*:/ruby_targets_}"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~sparc ~x86"
@@ -21,7 +23,11 @@ COMMON_DEPEND="
 	>=app-admin/eselect-1.2.13
 	>=app-shells/bash-3.2
 	dev-libs/libpcre[cxx]
-	ruby-bindings? ( >=dev-lang/ruby-1.8 )
+	ruby-bindings? ( $(
+		for ruby in ${RUBY_VERSIONS[@]}; do
+			echo "ruby_targets_${ruby#*:}? ( dev-lang/ruby:${ruby%:*} )"
+		done
+	) )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gemcutter? ( >=dev-libs/jansson-1.3 )
 	xml? ( >=dev-libs/libxml2-2.6 )
@@ -38,7 +44,11 @@ DEPEND="${COMMON_DEPEND}
 		|| ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 )
 		media-gfx/imagemagick
 		python-bindings? ( dev-python/sphinx )
-		ruby-bindings? ( dev-ruby/syntax )
+		ruby-bindings? ( dev-ruby/syntax$(
+			for ruby in ${RUBY_VERSIONS[@]}; do
+				echo -n "[ruby_targets_${ruby#*:}?]"
+			done
+		) )
 	)
 	virtual/pkgconfig
 	>=dev-cpp/gtest-1.6.0-r1"
@@ -59,12 +69,27 @@ PDEPEND="
 		>=net-misc/rsync-3
 		net-misc/wget"
 
+check_ruby_targets() {
+	if useq ruby-bindings; then
+		local nruby=0 ruby
+		for ruby in ${RUBY_VERSIONS[@]}; do
+			useq ruby_targets_${ruby#*:} && (( ++nruby ))
+		done
+		[[ ${nruby} -eq 1 ]] || die "exactly one RUBY_TARGETS flag must be set if USE=ruby-bindings"
+	fi
+}
+
 create-paludis-user() {
 	enewgroup "paludisbuild"
 	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild,tty"
 }
 
+pkg_pretend() {
+	check_ruby_targets
+}
+
 pkg_setup() {
+	check_ruby_targets
 	create-paludis-user
 }
 
@@ -81,6 +106,9 @@ src_compile() {
 		$(use_enable doc doxygen ) \
 		$(use_enable pink ) \
 		$(use_enable ruby-bindings ruby ) \
+		$(useq ruby-bindings && for ruby in ${RUBY_VERSIONS[@]}; do
+			useq ruby_targets_${ruby#*:} && echo --with-ruby-version=${ruby%:*}
+		done ) \
 		$(useq ruby-bindings && useq doc && echo --enable-ruby-doc ) \
 		$(use_enable python-bindings python ) \
 		$(useq python-bindings && useq doc && echo --enable-python-doc ) \
