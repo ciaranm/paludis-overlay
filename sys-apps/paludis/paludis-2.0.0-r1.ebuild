@@ -46,7 +46,7 @@ RDEPEND="${COMMON_DEPEND}
 # default virtual/portage provider.
 PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
-	app-admin/eselect-package-manager"
+	app-eselect/eselect-package-manager"
 
 create-paludis-user() {
 	enewgroup "paludisbuild"
