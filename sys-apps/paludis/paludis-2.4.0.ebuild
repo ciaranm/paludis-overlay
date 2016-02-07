@@ -4,7 +4,7 @@
 
 EAPI="paludis-1"
 
-inherit bash-completion user
+inherit bash-completion-r1 user
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.exherbo.org/"
@@ -125,7 +125,7 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
+	dobashcomp bash-completion/cave || die "dobashcomp failed"
 
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions

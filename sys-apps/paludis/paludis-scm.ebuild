@@ -6,7 +6,7 @@ EAPI="paludis-1"
 
 SCM_REPOSITORY="git://git.exherbo.org/paludis/paludis.git"
 SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
-inherit scm-git bash-completion user
+inherit scm-git bash-completion-r1 user
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.exherbo.org/"
@@ -129,7 +129,7 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
+	dobashcomp bash-completion/cave || die "dobashcomp failed"
 
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
