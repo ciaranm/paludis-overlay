@@ -27,6 +27,7 @@ COMMON_DEPEND="
 	sys-apps/file"
 
 DEPEND="${COMMON_DEPEND}
+    >=sys-devel/gcc-4.7
 	>=app-text/asciidoc-8.6.3
 	app-text/xmlto
 	app-text/htmltidy
